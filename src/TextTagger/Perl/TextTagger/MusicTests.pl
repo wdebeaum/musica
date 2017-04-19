@@ -22,7 +22,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 10, end => 13, lex => 'two',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -31,7 +31,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 14, end => 18, lex => 'five',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -40,7 +40,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 19, end => 22, lex => 'one',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -49,7 +49,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 10, end => 22, lex => 'two five one',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -77,7 +77,7 @@ my @tests = (
 #      },
       { type => 'sense',
         start => 24, end => 26, lex => 'ii',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -102,7 +102,7 @@ my @tests = (
 #      },
       { type => 'sense',
         start => 27, end => 28, lex => 'V',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -127,7 +127,7 @@ my @tests = (
 #      },
       { type => 'sense',
         start => 29, end => 30, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -143,7 +143,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 24, end => 30, lex => 'ii-V-I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -189,7 +189,7 @@ my @tests = (
 #      },
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -205,7 +205,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 17, end => 24, lex => 'G-chord',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -214,7 +214,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 33, end => 40, lex => 'seventh',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -229,7 +229,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 27, end => 28, lex => 'F',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -247,7 +247,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 29, end => 32, lex => '3rd',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -260,7 +260,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 5, end => 14, lex => 'Major 3rd',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -284,7 +284,7 @@ my @tests = (
 #      },
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -304,7 +304,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 14, end => 17, lex => '3rd',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -314,7 +314,7 @@ my @tests = (
 # not sure about this yet
 #      { type => 'sense',
 #        start => 28, end => 37, lex => 'half step',
-#	lftype => ['PITCH-INTERVAL'],
+#	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 #	'domain-specific-info' => {
 #	  domain => 'music',
 #	  type => 'interval',
@@ -337,7 +337,7 @@ my @tests = (
       # FIXME should I be trying to tag this as a key instead of a chord?
       { type => 'sense',
         start => 32, end => 39, lex => 'C Major',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -353,7 +353,7 @@ my @tests = (
 # tagging an isolated number as specifically a chord
 #      { type => 'sense',
 #        start => 11, end => 16, lex => 'three',
-#	lftype => ['CHORD'],
+#	'penn-pos' => ['NN'], lftype => ['CHORD'],
 #	'domain-specific-info' => {
 #	  domain => 'music',
 #	  type => 'chord',
@@ -362,7 +362,7 @@ my @tests = (
 #      },
       { type => 'sense',
         start => 22, end => 44, lex => 'Dominant Seventh chord',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -383,7 +383,7 @@ my @tests = (
       # the progression, not a chord with a second interval
       { type => 'sense',
         start => 33, end => 55, lex => 'Dominant Seventh chord',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -404,7 +404,7 @@ my @tests = (
       # FIXME key vs. chord (see above)
       { type => 'sense',
         start => 3, end => 10, lex => 'G Major',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -414,7 +414,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 19, end => 22, lex => 'two',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -423,7 +423,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 23, end => 27, lex => 'five',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -432,7 +432,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 28, end => 31, lex => 'one',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -441,7 +441,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 19, end => 31, lex => 'two-five-one',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -465,7 +465,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 10, end => 13, lex => 'two',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -474,7 +474,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 14, end => 18, lex => 'five',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -483,7 +483,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 19, end => 22, lex => 'one',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -492,7 +492,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 10, end => 22, lex => 'two-five-one',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -542,7 +542,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 9, end => 10, lex => 'D',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -555,7 +555,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 35, end => 36, lex => 'C',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -569,7 +569,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'C4',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -579,7 +579,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 2, lex => 'C4',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -597,7 +597,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'A3',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -611,7 +611,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'B5',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -625,7 +625,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 10, end => 11, lex => 'A',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -638,7 +638,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 9, end => 10, lex => 'B',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -651,7 +651,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 18, end => 26, lex => 'middle C',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -666,7 +666,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 9, end => 10, lex => 'A',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -680,7 +680,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'A#',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -694,7 +694,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 7, lex => 'A sharp',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -708,7 +708,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'Ab',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -722,7 +722,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 6, lex => 'A flat',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -736,7 +736,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 9, lex => 'A natural',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -750,7 +750,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 6, end => 18, lex => 'double sharp',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -759,7 +759,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 26, end => 27, lex => 'A',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -772,7 +772,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 4, end => 5, lex => 'C',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -781,7 +781,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 11, end => 22, lex => 'double flat',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -797,7 +797,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 19, lex => 'C augmented seventh',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -816,7 +816,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'Caug7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -835,7 +835,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'C+7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -854,7 +854,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 8, lex => 'G/B bass',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -868,7 +868,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'C',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -877,7 +877,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 3, lex => 'E',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -886,7 +886,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 4, end => 6, lex => 'G♯',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -896,7 +896,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 7, end => 9, lex => 'B♭',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -906,7 +906,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 9, lex => 'C–E–G♯–B♭',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch-sequence',
@@ -925,7 +925,7 @@ my @tests = (
       # FIXME should we delete the pitch sense of 'C' here or leave it ambiguous?
       { type => 'sense',
         start => 0, end => 1, lex => 'C',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -934,7 +934,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 1, lex => 'C',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -943,7 +943,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 4, end => 6, lex => 'Am',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -957,7 +957,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 9, end => 11, lex => 'Dm',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -971,7 +971,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 14, end => 16, lex => 'G7',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -981,7 +981,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 14, end => 16, lex => 'G7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -995,7 +995,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 16, lex => 'C – Am – Dm – G7',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -1037,7 +1037,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'Am+',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1054,7 +1054,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'F/A',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1074,7 +1074,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'A♭5',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -1085,7 +1085,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 3, lex => 'A♭5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1096,7 +1096,7 @@ my @tests = (
       # the actual meaning in context
       { type => 'sense',
         start => 0, end => 3, lex => 'A♭5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1114,7 +1114,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'Cm7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1133,7 +1133,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'CmM7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1153,7 +1153,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'C+M7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1173,7 +1173,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'CM♯5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1191,7 +1191,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'CM+5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1209,7 +1209,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 8, lex => 'Cmajaug5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1227,7 +1227,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'Cm♭5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1245,7 +1245,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'Cm°5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1263,7 +1263,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 8, lex => 'Cmindim5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1283,7 +1283,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'CM7+5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1303,7 +1303,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'CM7♯5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1323,7 +1323,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 9, lex => 'Cmaj7aug5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1342,7 +1342,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'CM7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1363,7 +1363,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'Cm',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1381,7 +1381,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'Cm3',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1399,7 +1399,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'C+',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1417,7 +1417,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'C+5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1435,7 +1435,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'Cm/M7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1454,7 +1454,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'CMM7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1473,7 +1473,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'Cm6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1492,7 +1492,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'CmM6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1511,7 +1511,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'C+m7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1530,7 +1530,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'CM11',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1551,7 +1551,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'CMP11',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1573,7 +1573,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 11, lex => 'major third',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1587,7 +1587,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 13, lex => 'perfect fifth',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1601,7 +1601,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 15, lex => 'C minor seventh',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1620,7 +1620,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 9, lex => 'minor 3rd',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1634,7 +1634,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 11, lex => 'perfect 5th',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1648,7 +1648,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 9, lex => 'minor 7th',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1663,7 +1663,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'Cdim7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1682,7 +1682,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 14, lex => 'diminished 5th',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1696,7 +1696,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 14, lex => 'diminished 7th',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1710,7 +1710,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 9, lex => 'C seventh',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1728,7 +1728,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'C7',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -1738,7 +1738,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 2, lex => 'C7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1756,7 +1756,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'C6',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -1766,7 +1766,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 2, lex => 'C6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1785,7 +1785,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'CM6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1804,7 +1804,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'Cadd6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1822,7 +1822,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 9, lex => 'major 2nd',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1836,7 +1836,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 11, lex => 'perfect 4th',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1850,7 +1850,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 9, lex => 'major 6th',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1864,7 +1864,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'C2',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -1874,7 +1874,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 2, lex => 'C2',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1892,7 +1892,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'Csus2',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1909,7 +1909,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'Cdom7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1928,7 +1928,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 9, lex => 'major 9th',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1942,7 +1942,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 12, lex => 'perfect 11th',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1956,7 +1956,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 10, lex => 'major 13th',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -1970,7 +1970,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'CMM6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -1989,7 +1989,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'CMm7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2008,7 +2008,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'Cmm7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2027,7 +2027,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'Co7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2046,7 +2046,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'Coo7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2065,7 +2065,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'Cø7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2084,7 +2084,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'Com7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2104,7 +2104,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'CM',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2118,7 +2118,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'Cmaj',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2132,7 +2132,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'Cmin',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2150,7 +2150,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'Caug',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2168,7 +2168,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 4, lex => 'Cdim',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2186,7 +2186,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'Cmaj6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2205,7 +2205,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'Cmin6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2224,7 +2224,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'Cmaj7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2243,7 +2243,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'Cmin7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2262,7 +2262,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'Cø',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2281,7 +2281,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 8, lex => 'Cminmaj7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2300,7 +2300,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 9, lex => 'Cmin/maj7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2320,7 +2320,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 10, lex => 'Cmin(maj7)',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2340,7 +2340,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 6, lex => 'Cm(M7)',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2362,7 +2362,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2376,7 +2376,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'I6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2395,7 +2395,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'I-6-4',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2414,7 +2414,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'ii',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2432,7 +2432,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'ii6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2451,7 +2451,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'ii6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2466,7 +2466,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 4, end => 5, lex => 'V',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2476,7 +2476,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 6, end => 7, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2486,7 +2486,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 7, lex => 'ii6 V I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -2517,7 +2517,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'ii7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2536,7 +2536,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 6, lex => 'ii-6-5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2556,7 +2556,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 6, lex => 'ii-6-5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2572,7 +2572,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 7, end => 8, lex => 'V',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2582,7 +2582,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 9, end => 10, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2592,7 +2592,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 10, lex => 'ii-6-5 V I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -2624,7 +2624,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 6, lex => 'ii-4-2',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2644,7 +2644,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 6, lex => 'iiø4-2',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2664,7 +2664,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'iii',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2682,7 +2682,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'IV',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2696,7 +2696,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'IV',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2706,7 +2706,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 3, end => 4, lex => 'V',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2716,7 +2716,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 5, end => 6, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2726,7 +2726,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 6, lex => 'IV V I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -2752,7 +2752,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'IV6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2771,7 +2771,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'iv6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2790,7 +2790,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 6, lex => 'IV-6-4',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2809,7 +2809,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 6, lex => 'iv-6-4',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2828,7 +2828,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2838,7 +2838,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 8, lex => 'IV-6-4',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2853,7 +2853,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 9, end => 10, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2863,7 +2863,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 10, lex => 'I IV-6-4 I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -2894,7 +2894,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'V',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2908,7 +2908,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'V6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2927,7 +2927,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'V6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2942,7 +2942,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 3, end => 4, lex => 'V',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2952,7 +2952,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 5, end => 6, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -2962,7 +2962,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 6, lex => 'V6 V I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -2993,7 +2993,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'V7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3012,7 +3012,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'V-6-5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3032,7 +3032,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'V-4-3',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3052,7 +3052,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'V-4-2',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3072,7 +3072,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'V-4-3',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3088,7 +3088,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 8, end => 10, lex => 'I6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3103,7 +3103,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 10, lex => 'V-4-3 - I6',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -3136,7 +3136,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'vi',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3155,7 +3155,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'viio6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3174,7 +3174,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'V-6-4',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3189,7 +3189,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 6, end => 9, lex => '5-3',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3199,7 +3199,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 9, lex => 'V-6-4-5-3',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -3227,7 +3227,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3237,7 +3237,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 7, lex => 'viio6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3252,7 +3252,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 8, end => 10, lex => 'I6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3267,7 +3267,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 10, lex => 'I viio6 I6',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -3303,7 +3303,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'ii',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3317,7 +3317,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 3, end => 5, lex => 'I6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3332,7 +3332,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 6, end => 9, lex => 'ii6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3347,7 +3347,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 9, lex => 'ii I6 ii6',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -3387,7 +3387,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3397,7 +3397,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 7, lex => 'V-4-3',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3413,7 +3413,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 8, end => 10, lex => 'I6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3428,7 +3428,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 10, lex => 'I V-4-3 I6',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -3465,7 +3465,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 5, lex => 'V-6-4',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3480,7 +3480,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 6, end => 11, lex => 'V-4-2',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3496,7 +3496,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 12, end => 14, lex => 'I6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3511,7 +3511,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 14, lex => 'V-6-4 V-4-2 I6',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -3553,7 +3553,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3563,7 +3563,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 8, lex => 'ii-4-2',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3579,7 +3579,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 9, end => 14, lex => 'V-6-5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3595,7 +3595,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 15, end => 16, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3605,7 +3605,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 16, lex => 'I ii-4-2 V-6-5 I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -3647,7 +3647,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'i',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3661,7 +3661,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 8, lex => 'iiø4-2',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3677,7 +3677,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 9, end => 14, lex => 'V-6-5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3693,7 +3693,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 15, end => 16, lex => 'i',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3707,7 +3707,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 16, lex => 'i iiø4-2 V-6-5 i',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -3757,7 +3757,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'I6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3772,7 +3772,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 3, end => 8, lex => 'viio6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3787,7 +3787,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 9, end => 10, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3797,7 +3797,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 11, end => 16, lex => 'V-4-3',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3813,7 +3813,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 17, end => 19, lex => 'I6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3828,7 +3828,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 20, end => 22, lex => 'IV',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3838,7 +3838,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 23, end => 28, lex => 'viio6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3853,7 +3853,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 29, end => 30, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3863,7 +3863,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 30, lex => 'I6 viio6 I V-4-3 I6 IV viio6 I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -3935,7 +3935,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3945,7 +3945,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 3, lex => 'V',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3955,7 +3955,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 4, end => 5, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3965,7 +3965,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 6, end => 11, lex => 'V-4-3',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3981,7 +3981,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 12, end => 14, lex => 'I6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -3996,7 +3996,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 15, end => 17, lex => 'IV',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4006,7 +4006,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 18, end => 23, lex => 'V-4-3',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4022,7 +4022,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 24, end => 25, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4032,7 +4032,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 25, lex => 'I V I V-4-3 I6 IV V-4-3 I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4095,7 +4095,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4105,7 +4105,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 5, lex => 'iii',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4119,7 +4119,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 6, end => 8, lex => 'IV',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4129,7 +4129,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 9, end => 10, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4139,7 +4139,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 11, end => 13, lex => 'V7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4154,7 +4154,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 14, end => 15, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4164,7 +4164,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 16, end => 18, lex => 'V7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4179,7 +4179,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 19, end => 20, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4189,7 +4189,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 20, lex => 'I iii IV I V7 I V7 I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4250,7 +4250,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4260,7 +4260,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 4, lex => 'vi',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4274,7 +4274,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 5, end => 7, lex => 'ii',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4288,7 +4288,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 8, end => 10, lex => 'V7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4303,7 +4303,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 11, end => 12, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4313,7 +4313,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 12, lex => 'I vi ii V7 I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4360,7 +4360,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4370,7 +4370,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 4, lex => 'vi',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4384,7 +4384,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 5, end => 7, lex => 'IV',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4394,7 +4394,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 8, end => 9, lex => 'V',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4404,7 +4404,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 9, lex => 'I vi IV V',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4438,7 +4438,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'vi',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4452,7 +4452,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 3, end => 4, lex => 'V',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4462,7 +4462,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 5, end => 6, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4472,7 +4472,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 6, lex => 'vi V I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4502,7 +4502,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 1, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4512,7 +4512,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 2, end => 5, lex => 'IV6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4527,7 +4527,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 6, end => 8, lex => 'I6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4542,7 +4542,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 8, lex => 'I IV6 I6',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4578,7 +4578,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'IV6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4593,7 +4593,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 4, end => 9, lex => 'V-6-5',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4609,7 +4609,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 10, end => 11, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4619,7 +4619,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 11, lex => 'IV6 V-6-5 I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4657,7 +4657,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'IV',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4667,7 +4667,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 3, end => 4, lex => 'I',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4677,7 +4677,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 4, lex => 'IV I',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4699,7 +4699,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 3, lex => 'iv6',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4714,7 +4714,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 4, end => 5, lex => 'V',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4724,7 +4724,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 5, lex => 'iv6 V',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4751,7 +4751,7 @@ my @tests = (
     tags => [
       { type => 'sense',
         start => 0, end => 2, lex => 'V7',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4766,7 +4766,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 3, end => 5, lex => 'vi',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4780,7 +4780,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => 5, lex => 'V7 vi',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4818,7 +4818,7 @@ my @tests = (
   },
       { type => 'sense',
         start => 0, end => , lex => '',
-	lftype => ['PITCH'],
+	'penn-pos' => ['NN'], lftype => ['PITCH'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'pitch',
@@ -4828,7 +4828,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => , lex => '',
-	lftype => ['PITCH-INTERVAL'],
+	'penn-pos' => ['NN'], lftype => ['PITCH-INTERVAL'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'interval',
@@ -4839,7 +4839,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => , lex => '',
-	lftype => ['CHORD'],
+	'penn-pos' => ['NN'], lftype => ['CHORD'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'chord',
@@ -4853,7 +4853,7 @@ my @tests = (
       },
       { type => 'sense',
         start => 0, end => , lex => '',
-	lftype => ['SEQUENCE'],
+	'penn-pos' => ['NN'], lftype => ['SEQUENCE'],
 	'domain-specific-info' => {
 	  domain => 'music',
 	  type => 'progression',
@@ -4869,7 +4869,7 @@ if (@ARGV == 1) {
   @tests = @tests[$ARGV[0]..$ARGV[1]];
 }
 
-my @key_order = qw(domain type start end lex lftype domain-specific-info root bass letter scale-degree octave scale-degree-span semitones-above-natural quality inversion intervals-above-bass intervals-above-root case value);
+my @key_order = qw(domain type start end lex penn-pos lftype domain-specific-info root bass letter scale-degree octave scale-degree-span semitones-above-natural quality inversion intervals-above-bass intervals-above-root case value);
 my %ordered_keys = ();
 for (@key_order) { $ordered_keys{$_} = 1; }
 

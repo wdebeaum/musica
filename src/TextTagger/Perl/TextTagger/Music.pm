@@ -160,7 +160,12 @@ sub tag_intervals {
   my $text = shift;
   my @tags = ();
   while ($text =~ /$interval_re/g) {
-    my $tag = { type => 'sense', lftype => ['PITCH-INTERVAL'], match2tag() };
+    my $tag = +{
+      type => 'sense',
+      'penn-pos' => ['NN'], # TODO tag plural intervals?
+      lftype => ['PITCH-INTERVAL'],
+      match2tag()
+    };
     my $dsi = { domain => 'music', type => 'interval' };
     if ($tag->{lex} =~ /\s+|$dash_re/) {
       my ($quality, $ordinal) = ($`, $');
@@ -255,7 +260,7 @@ sub tag_letter_notes_and_chords {
 	       (?i: \s+ add \s+ (?<interval_add> $loose_int_re ))?
 	     )
 	     \b
-	     (?<chord_spec2> \s* $dash_re? \s* chords? \b )?
+	     (?<chord_spec2> \s* $dash_re? \s* chord(?<plural1>s)? \b )?
 	     |
 	     # using abbreviations or symbols
 	     (?:
@@ -280,7 +285,7 @@ sub tag_letter_notes_and_chords {
 		 (?i: add (?<int_add> $loose_int_re ) \b )?
 		 (?! \w ) # not \b, since previous might not be \w
 	       )
-	       (?<chord_spec4> \s* $dash_re? \s* chords? \b )?
+	       (?<chord_spec4> \s* $dash_re? \s* chord(?<plural2>s)? \b )?
 	       |
 	       (?<octave> \d \b )
 	     )
@@ -297,7 +302,8 @@ sub tag_letter_notes_and_chords {
 	 $chord_quality, $interval_quality, $int_accidental, $interval,
 	 $suspended, $added,
 	 $bass_letter, $bass_accidental,
-	 $octave
+	 $octave,
+	 $plural
        ) = (
          $+{middle_c},
          ($+{root_letter1} || $+{root_letter2} || $+{root_letter3}),
@@ -312,9 +318,12 @@ sub tag_letter_notes_and_chords {
 	 ($+{sus} || $+{suspended}),
 	 ($+{int_add} || $+{interval_add}),
 	 $+{bass_letter}, $+{bass_accidental},
-	 $+{octave}
+	 $+{octave},
+	 ($+{plural1} || $+{plural2})
        );
 #    print STDERR Data::Dumper->Dump([\%+],["*captures"]);
+    # TODO tag more plurals?
+    $tag->{'penn-pos'} = [($plural ? 'NNS' : 'NN')];
     if (defined($middle_c)) { # special case for "middle C"
       $tag->{lftype} = ['PITCH'];
       $tag->{'domain-specific-info'} = +{
@@ -727,6 +736,7 @@ sub tag_roman_numeral_chords {
 	type => 'sense',
 	lex => substr($text, $offsets->{start}, $offsets->{end} - $offsets->{start}),
 	%$offsets,
+	'penn-pos' => ['NN'], # TODO tag plural roman numeral chords???
 	lftype => ['CHORD'],
 	'domain-specific-info' => +{
 	  domain => 'music',
@@ -783,6 +793,7 @@ sub pitch_dsi_to_chord_tag {
     lex => $pitch->{lex},
     start => $pitch->{start},
     end => $pitch->{end},
+    'penn-pos' => ['NN'], # TODO get POS from pitch tag?
     lftype => ['CHORD'],
     'domain-specific-info' => $chord
   };
@@ -814,6 +825,7 @@ sub tag_sequences {
   my $end = 0;
   while (@input_tags) {
     my $input_tag = shift @input_tags;
+    # FIXME need to check penn-pos so we don't use plural input tags in sequences, except perhaps as the last item
     my $item = tag_to_sequence_item($input_tag);
     if (@items) {
       next unless ($input_tag->{start} >= $end);
@@ -840,6 +852,7 @@ sub tag_sequences {
 	    type => 'sense',
 	    start => $start, end => $end,
 	    lex => substr($text, $start, $end-$start),
+	    'penn-pos' => ['NN'], # can sequences ever be plural?
 	    lftype => ['SEQUENCE'],
 	    'domain-specific-info' => +{
 	      domain => 'music',
@@ -866,6 +879,7 @@ sub tag_sequences {
       type => 'sense',
       start => $start, end => $end,
       lex => substr($text, $start, $end-$start),
+      'penn-pos' => ['NN'],
       lftype => ['SEQUENCE'],
       'domain-specific-info' => +{
 	domain => 'music',
@@ -878,6 +892,7 @@ sub tag_sequences {
   while ($text =~ /$cardinal_re(?:(?:$dash_re|\s+)$cardinal_re)+/g) {
     my $sequence_tag = +{
       type => 'sense',
+      'penn-pos' => ['NN'],
       lftype => ['SEQUENCE'],
       match2tag()
     };
@@ -885,6 +900,7 @@ sub tag_sequences {
     while ($sequence_tag->{lex} =~ /$cardinal_re/g) {
       my $chord_tag = +{
 	type => 'sense',
+	'penn-pos' => ['NN'],
 	lftype => ['CHORD'],
 	match2tag()
       };
