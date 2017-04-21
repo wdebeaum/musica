@@ -28,8 +28,13 @@
 
 ;;; Sample dialogues
 ;;;
-(defvar *sample-dialogues*
+(setf *sample-dialogues*
   '(
+    (work-on-test .
+     ("Let's work on a song."
+       ;S: Ok
+      "Show me the first two measures of song 1"
+     ))
     ;;; from CwC_MUSICA_AnnotatedDialogs_20161118.docx
     (dialogue-0 .  
      ("Give me a two five one (ii-V-I) progression."
