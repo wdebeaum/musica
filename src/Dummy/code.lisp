@@ -78,6 +78,7 @@
 		
 		 (otherwise
 		  (list 'report :content (list 'acceptable :what content) :context context)
+		  ;(list 'report :content (list 'unacceptable :type 'NO-GOOD :what content) :context context)
 		   )
 	       )))
 	    ((ask-wh ask-if)
