@@ -2,6 +2,6 @@
 
 
 (setf om::*domain-sense-preferences* '(
-; eg:
-;				       (W::step ONT::step)
+				       (W::step ONT::whole-step)
+				       (W::NOTE ONT::NOTE-PITCH)
 				       ))
