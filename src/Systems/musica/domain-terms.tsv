@@ -1,0 +1,2 @@
+example melody 1	(named-entity :lex "Example Melody 1" :penn-pos (NNP) :lftype (ONT::MUSIC))
+example melody 2	(named-entity :lex "Example Melody 2" :penn-pos (NNP) :lftype (ONT::MUSIC))
