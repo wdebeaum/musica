@@ -81,7 +81,7 @@
 	;;
 	((parser::setmaxchartsize 3000))
 	;;
-	;;(parser::*kr-type-info-desired* '(:WNsense :DRUM :wordnet))
+	(parser::*kr-type-info-desired* '(:WNsense :music :wordnet))
 	;;
 	((setf (parser::flexible-semantic-matching parser::*chart*) t))
 	;; boost content words that have domain specific info attached
