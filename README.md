@@ -2,7 +2,7 @@
 
 Musica is a collaborative assistant for music composition developed by IHMC together with University of Rochester. The project is funded by DARPA under the Communication with Computers (CwC) program.
 
-This git repo is a mirror of the TRIPS `musica` CVS module. It is updated nightly.
+This git repo is a mirror of the TRIPS `musica` CVS module.
 
 Note that the `src/config/lisp/defsystem/defsystem-3.6i/` directory contains a modified, non-standard, non-official version of [MK:DEFSYSTEM](http://www.cliki.net/mk-defsystem) 3.6i. See the comments near the top of `defsystem.lisp` in that directory for its copyright notice and license.
 
