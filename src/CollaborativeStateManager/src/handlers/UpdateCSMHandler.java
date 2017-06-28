@@ -9,25 +9,52 @@ import states.Elaboration;
 import states.Goal;
 import states.Query;
 import utilities.KQMLUtilities;
+import TRIPS.CollaborativeStateManager.CollaborativeStateManager;
 import TRIPS.KQML.KQMLList;
 import TRIPS.KQML.KQMLObject;
 import TRIPS.KQML.KQMLPerformative;
 import TRIPS.KQML.KQMLString;
 
-public class UpdateCSMHandler extends MessageHandler {
+
+public class UpdateCSMHandler extends MessageHandler implements Runnable {
 
 	KQMLList innerContent = null;
 	KQMLObject context;
 	String updateType;
 	String activeGoal = null;
 	GoalPlanner goalPlanner;
+	KQMLObject replyWith;
 	
 	public UpdateCSMHandler(KQMLPerformative msg, KQMLList content, 
 			ReferenceHandler referenceHandler,
-			GoalPlanner goalPlanner) {
-		super(msg, content, referenceHandler);
+			GoalPlanner goalPlanner, CollaborativeStateManager csm) {
+		super(msg, content, referenceHandler, csm);
 		this.goalPlanner = goalPlanner;
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void run()
+	{
+		
+		KQMLList responseContent = null;
+		try {
+			responseContent = process();
+		}
+		catch (RuntimeException re)
+		{
+			re.printStackTrace();
+			KQMLPerformative replyMessage = new KQMLPerformative("SORRY");
+			KQMLString comment = new KQMLString("Exception in CSM");
+			KQMLString text = new KQMLString(re.getMessage());
+			replyMessage.setParameter(":COMMENT", comment);
+			replyMessage.setParameter(":TEXT", text);
+			csm.sendReply(msg, replyMessage);
+		}
+		if (responseContent != null)
+		{
+			csm.sendContentViaPerformative("TELL", "DAGENT", responseContent, replyWith);
+		}
+		
 	}
 
 	@Override

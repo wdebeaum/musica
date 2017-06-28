@@ -214,7 +214,7 @@ fi
      -process-input-utterances yes \
      -terms-file $TRIPS_BASE/etc/$TRIPS_SYSNAME/domain-terms.tsv \
      -init-taggers terms-from-file \
-     -default-type '(or affixes words punctuation terms-from-file music)' \
+     -default-type '(or affixes words punctuation terms-from-file roman-numerals music)' \
  2>&1 | tee $logdir/TextTagger.err) &
 
 # Start Graphviz

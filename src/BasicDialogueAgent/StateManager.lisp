@@ -961,6 +961,12 @@
 	       (invoke-ba 
 		(invoke-ba (cdr act) user channel uttnum)
 		nil)
+	       (invoke-csm
+		(if *external-CSM*
+		    (progn
+		      (invoke-ba (cdr act) user channel uttnum)
+		      nil)
+		    (invoke-csm act)))
 	       ((notify-ba request)
 		(notify (cdr act) user channel uttnum))
 	       (set-alarm
@@ -1009,7 +1015,7 @@
 ;;  BA invocation
 
 (defun invoke-BA (args user channel uttnum)
-  "here we invoke a backend aganet with a message and record the result for the followup state.
+  "here we invoke a backend agent with a message and record the result for the followup state.
     Since we are using send and wait we don't have syncronization problems"
   ;; clear clear any remaining input in the input stream
 ;  (clear-pending-speech-acts uttnum channel)

@@ -10,6 +10,7 @@
 (define-type ONT::SOUND-UNIT
  :parent ONT::MEASURE-UNIT
  :sem (F::abstr-obj)
+ :arguments ((:ESSENTIAL ONT::FIGURE ((? t F::ABSTR-OBJ)))) ; music
 )
 
 #|
@@ -109,8 +110,9 @@
  )
 
 (define-type ONT::OCTAVE
- :parent ONT::PITCH-INTERVAL
- :sem (F::abstr-obj)
+ ;:parent ONT::PITCH-INTERVAL
+  :parent ONT::PITCH-UNIT
+  :sem (F::abstr-obj)
  :wordnet-sense-keys ("octave%1:10:00")
 )
 

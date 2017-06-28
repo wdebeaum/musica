@@ -46,7 +46,7 @@ public class GoalPlanner {
 		this.referenceHandler = referenceHandler;
 	}
 	
-	public boolean addGoal(Goal goal, String parentVariableName)
+	public synchronized boolean addGoal(Goal goal, String parentVariableName)
 	{
 
 		if (goal == null)
@@ -400,11 +400,11 @@ public class GoalPlanner {
 		return (activeGoal != null);
 	}
 	
-	public Goal getActiveGoal() {
+	public synchronized Goal getActiveGoal() {
 		return activeGoal;
 	}
 
-	public boolean setActiveGoal(Goal goal) {
+	public synchronized boolean setActiveGoal(Goal goal) {
 		boolean succeeded = false;
 		
 		if (hasGoalById(goal.getId()) || hasGoal(goal.getVariableName()))
@@ -423,7 +423,7 @@ public class GoalPlanner {
 	}
 	
 	// Adds the goal from context if not already present
-	public boolean setActiveGoal(String goal, KQMLList context)
+	public synchronized boolean setActiveGoal(String goal, KQMLList context)
 	{
 		if (hasGoal(goal))
 		{
@@ -484,7 +484,7 @@ public class GoalPlanner {
 		return parent;
 	}
 	
-	public void setCompleted(Goal goal)
+	public synchronized void setCompleted(Goal goal)
 	{
 		goal.setCompleted(true);
 		System.out.println("Completed goal " + goal.getVariableName());
@@ -550,7 +550,6 @@ public class GoalPlanner {
 		else if (type.equalsIgnoreCase("QUERY-IN-CONTEXT"))
 		{
 			newGoal = new Query(act,getGoal(parent),context);
-			//newGoal = new Query(goalLF,getGoal(parent),context);
 			addGoal(newGoal,parent);
 			
 		}

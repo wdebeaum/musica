@@ -41,11 +41,12 @@
              )
  )
 
-(define-type ONT::phys-modifier
- :parent ONT::SITUATION-OBJECT-MODIFIER
- :arguments ((:ESSENTIAL ONT::FIGURE (F::PHYS-OBJ))
-             )
- )
+; REMOVING. Redistributed to property-val (Jena 05.2017)
+;(define-type ONT::phys-modifier
+; :parent ONT::SITUATION-OBJECT-MODIFIER
+; :arguments ((:ESSENTIAL ONT::FIGURE (F::PHYS-OBJ))
+;             )
+; )
 
 ;;; Myrosia 01/08/03 this actually has phys-obj in the restriction
 ;;; because most frequently adjectives that tend to modify situations
@@ -255,7 +256,7 @@
  :parent ONT::PREDICATE
  :arguments ((:ESSENTIAL ONT::FIGURE (F::Situation (f::type ont::event-of-action)
 						   (f::aspect f::dynamic)))
-             (:REQUIRED ONT::GROUND (F::Phys-obj (F::origin F::artifact) (F::intentional -)))
+             (:REQUIRED ONT::GROUND (F::Phys-obj (F::origin F::artifact) (F::intentional -) (F::OBJECT-FUNCTION F::INSTRUMENT)))
              )
  )
 

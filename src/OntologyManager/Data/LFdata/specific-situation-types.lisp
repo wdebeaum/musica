@@ -115,7 +115,7 @@
 ;; give the man a book / give a book to the man
 ;; the windmill supplies areas with electricity
 (define-type ONT::GIVING
- :wordnet-sense-keys ("allow%2:41:01" "give%2:40:00" "give%2:40:03" "giving%1:04:00" "offer%1:10:01" "offering%1:10:01"  "send_in%2:41:00")
+ :wordnet-sense-keys ("allow%2:41:01" "give%2:40:00" "give%2:40:03" "giving%1:04:00" "offer%1:10:01" "offering%1:10:01"  "send_in%2:41:00" "give%2:40:11")
  :parent ONT::RELINQUISH
  :comment "To relinquish control of AFFECTED AFFECTED-RESULT, typically voluntarily and possibly in exchange for something"
  :sem (F::SITUATION (f::cause f::agentive) (F::iobj F::recipient))
@@ -373,6 +373,7 @@
 
 ;; sway, rock, quake
 (define-type ONT::move-back-and-forth
+ :wordnet-sense-keys ("move_back_and_forth%2:38:00")
  :parent ONT::MOVE
  )
 
@@ -1062,6 +1063,15 @@
     :parent ONT::stop
  )
 
+(define-type ONT::pause
+  :wordnet-sense-keys ("pause%2:42:00" "pause%2:32:01" "wait%2:42:00" "wait%2:42:01")
+  :parent ONT::inhibit-effect
+ :arguments ((:OPTIONAL ONT::EXTENT (F::abstr-obj (F::scale ont::duration-scale)))
+             ;;; wait for john
+             ;(:OPTIONAL ONT::Formal (F::phys-obj))
+             )
+ )
+
 
 
 (define-type ONT::START
@@ -1440,6 +1450,11 @@
  :parent ONT::experiencer-emotion
  )
 
+(define-type ONT::hesitate
+  :wordnet-sense-keys ("hesitate%2:42:00")
+  :parent ont::experiencer-emotion
+  )
+
 (define-type ONT::enduring
  :wordnet-sense-keys ("digest%2:31:03" "endure%2:31:00" "stick_out%2:31:00" "stomach%2:31:00" "bear%2:31:00" "stand%2:31:00" "tolerate%2:31:00" "support%2:31:04" "brook%2:31:00" "abide%2:31:00" "suffer%2:31:00" "put_up%2:31:00" "last_out%2:42:00")
  :parent ONT::active-perception
@@ -1480,7 +1495,7 @@
  )
 
 (define-type ONT::evoke-joy
-    :wordnet-sense-keys ("please%2:37:00" "delight%2:37:00" "gladden%2:37:01" "gratify%2:37:00" "cheer%2:32:03" "entertain%2:41:00")
+    :wordnet-sense-keys ("please%2:37:00" "delight%2:37:00" "gladden%2:37:01" "gratify%2:37:00" "cheer%2:32:03" "entertain%2:41:00" "indulge%2:41:01" "indulge%2:34:00" "indulge%2:34:12" "indulge%2:41:00")
     :parent ONT::evoke-emotion
     )
 
@@ -1702,6 +1717,11 @@
  :arguments ((:optional ONT::affected)
  	     (:optional ONT::formal)
              )
+ )
+
+(define-type ONT::approve-authorize
+ :wordnet-sense-keys ("authorize%2:32:00" "approve%2:31:00" "authorize%2:41:00" "condone%2:32:00")
+ :parent ONT::judgement
  )
 
 (define-type ONT::abuse
@@ -1926,7 +1946,7 @@
  :parent ont::awareness ;; 20120529 GUM change
  ;;:parent ONT::SALIENCE + args
  :arguments ((:REQUIRED ONT::Formal)
-             (:OPTIONAL ONT::Neutral (F::phys-obj))
+             (:OPTIONAL ONT::Neutral (F::phys-obj (F::intentional +)))  ; how about "I know the city/the lines (of the play) very well"?
 	     (:OPTIONAL ONT::neutral1)  ;; thing known
              ;;; Ground/ Loc-Perc
 ;             (:OPTIONAL ONT::Place)
@@ -2451,7 +2471,7 @@
 ;; this needs to be able to have stative ont::effect, as in 'let him know'
 ;; also need to have phys & abstr objects as in "are pets allowed"
 (define-type ONT::Allow
- :wordnet-sense-keys ("include%2:41:03" "let_in%2:41:00" "admit%2:41:00" "let%2:41:00" "allow%2:41:00" "permit%2:41:00" "decertify%2:41:00" "give%2:40:11" "indulge%2:41:01" "indulge%2:34:00" "indulge%2:34:12" "indulge%2:41:00" "condone%2:32:00")
+ :wordnet-sense-keys ("allow%2:41:00" )
   :parent ONT::CAUSE-EFFECT
  ;; approval for the purchase (sit); budget (abstr); that machine (phys-obj)
   :arguments ((:Required ONT::affected ((? aff F::phys-obj f::abstr-obj f::situation)))
@@ -2895,6 +2915,13 @@
 	     (:OPTIONAL ONT::result ((? res F::Phys-obj f::abstr-obj) (F::intentional -))) ;; he made a box from paper
              )
  )
+
+(define-type ONT::imitate-simulate
+ :wordnet-sense-keys ("simulate%2:36:04" "simulate%2:36:02" "imitate%2:36:03")
+  :parent ONT::CREATE
+  :arguments ((:ESSENTIAL ONT::neutral)
+	      )
+  )
 
 (define-type ONT::cause-make-things
  :wordnet-sense-keys ("create_from_raw_material%2:36:00" "create_from_raw_stuff%2:36:00")
@@ -3552,7 +3579,7 @@
 
 ;; stretch  20120524 GUM change new type
 (define-type ONT::admit
-  :wordnet-sense-keys ("accept%2:40:03")
+  :wordnet-sense-keys ("accept%2:40:03" "admit%2:41:00")
   :parent ont::enroll
  )
 

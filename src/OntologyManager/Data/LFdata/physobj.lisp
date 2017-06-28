@@ -77,8 +77,10 @@
 (define-type ONT::macromolecular-complex
     :wordnet-sense-keys ("complex%1:27:00")
 ;    :parent ONT::MOLECULE
+    :sem (F::Phys-obj (F::container +))
     :parent ONT::MOLECULAR-PART
-    :arguments ((:required ONT::CONTENTS (F::Phys-obj (f::type ont::molecular-part))))
+    :arguments (;(:required ONT::CONTENTS (F::Phys-obj (f::type ont::molecular-part))))
+		(:required ONT::FIGURE (F::Phys-obj (f::type ont::molecular-part))))
     )
 
 (define-type ONT::RNA
@@ -535,7 +537,6 @@
 (define-type ONT::technology
  :parent ONT::manufactured-object
  :wordnet-sense-keys ("technology%1:04:00" "technology%1:06:00")
- 
  :arguments ((:essential ONT::FIGURE)
 	     )
  )
@@ -635,7 +636,7 @@
 
 
 (define-type ONT::person
-    :wordnet-sense-keys ("person%1:03:00" "individual%1:03:00" "someone%1:03:00" "somebody%1:03:00" "mortal%1:03:00" "soul%1:03:00" "witch%1:18:01")
+    :wordnet-sense-keys ("person%1:03:00" "individual%1:03:00" "someone%1:03:00" "somebody%1:03:00" "mortal%1:03:00" "soul%1:03:00" "imaginary_being%1:18:00")
     :parent ONT::mammal ;; umls
     :sem (F::Phys-obj (F::form F::solid-object)
 		      (F::spatial-abstraction F::spatial-point)
@@ -757,7 +758,7 @@
 ;; girl
 ;; woman, lady, female
 (define-type ONT::female-child
-    :wordnet-sense-keys ("woman%1:18:00" "adult_female%1:18:00")
+    :wordnet-sense-keys ("girl%1:18:02")
     :parent ONT::female-person
     )
 
@@ -769,7 +770,7 @@
 
 ;; boy
 (define-type ONT::male-child
-    :wordnet-sense-keys ("man%1:18:00" "adult_male%1:18:00")
+    :wordnet-sense-keys ("boy%1:18:00")
     :parent ONT::male-person
     )
 
@@ -779,11 +780,40 @@
     :parent ONT::family-relation
     )
 
+;; nationality, regional identity
+(define-type ont::identity-and-origin
+ :parent ont::person-reln
+)
+
+;; american, british, chinese etc
+(define-type ont::nationality
+ :parent ont::identity-and-origin
+ :wordnet-sense-keys ("american%1:18:00" "british%1:18:00" "chinese%1:10:00" "danish%1:10:00" "dutch%1:18:00" "russian%1:18:00")
+)
+
+;; north american, south american, asian etc
+(define-type ont::regional-identity
+ :parent ont::identity-and-origin
+ :wordnet-sense-keys ("north_american%1:18:00" "asian%1:18:00" "european%1:18:00")
+)
+
+;; foreigner 
+(define-type ont::foreigner
+ :parent ont::identity-and-origin
+ :wordnet-sense-keys ("foreigner%1:18:00")
+)
+
 ;; citizen, inhabitant, resident
 (define-type ONT::inhabitant
-    :wordnet-sense-keys ("indweller%1:18:00" "denizen%1:18:00" "dweller%1:18:00" "habitant%1:18:00" "inhabitant%1:18:00" "citizen%1:18:00")
-    :parent ONT::person-reln
-    )
+    :wordnet-sense-keys ("indweller%1:18:00" "denizen%1:18:00" "dweller%1:18:00" "habitant%1:18:00" "inhabitant%1:18:00" "citizen%1:18:00" "national%1:18:00" "native%1:18:01")
+    :parent ont::identity-and-origin
+)
+
+;; hindu, buddhist, christian
+(define-type ont::religious-identity
+ :parent ont::identity-and-origin
+ :wordnet-sense-keys ("hindu%1:18:01" "buddhist%1:18:00" "christian%1:18:00")
+)
 
 ;; sender, receiver, caller
 (define-type ONT::communication-party
@@ -802,6 +832,8 @@
     :wordnet-sense-keys ("entrant%1:18:02")
     :parent ONT::person
     )
+
+
 
 ;; owner, possessor
 (define-type ONT::possessor-reln
@@ -1907,7 +1939,6 @@
 ;; laptop, pc
 (define-type ONT::computer-type
     :parent ONT::computer
-    
     )
 
 ;; a physical arrangement of components, e.g. a stereo system
@@ -2229,7 +2260,7 @@
 (define-type ONT::tableware
     :wordnet-sense-keys ("tableware%1:06:00")
     :parent ONT::manufactured-object
-    :sem (F::Phys-obj (F::container +) (F::form F::solid-object) (F::origin F::artifact)(f::trajectory -) (f::object-function f::instrument))
+    :sem (F::Phys-obj (F::form F::solid-object) (F::origin F::artifact)(f::trajectory -))
     :arguments ((:OPTIONAL ONT::CONTENTS)
 		)
     )
@@ -2238,7 +2269,7 @@
 (define-type ONT::cutlery
     :wordnet-sense-keys ("cutlery%1:06:00")
     :parent ONT::tableware
-    :sem (F::Phys-obj (F::container +) (F::form F::solid-object) (F::origin F::artifact)(f::trajectory -) (f::object-function f::instrument))
+    :sem (F::Phys-obj (F::form F::solid-object) (F::origin F::artifact)(f::trajectory -) (f::object-function f::instrument))
     )
 
 
@@ -2250,16 +2281,19 @@
 
 (define-type ont::cup
     :parent ont::tableware
+    :sem (F::Phys-obj (F::container +))
     :wordnet-sense-keys ("cup%1:06:00")
     )
 
 (define-type ont::mug
     :parent ont::tableware
+    :sem (F::Phys-obj (F::container +))
     :wordnet-sense-keys ("mug%1:06:00")
     )
 
 (define-type ont::glass
     :parent ont::tableware
+    :sem (F::Phys-obj (F::container +))
     :wordnet-sense-keys ("glass%1:06:00")
     )
 
@@ -2363,7 +2397,6 @@
 (define-type ONT::DAIRY
     :parent ONT::FOOD
     :wordnet-sense-keys ("dairy_product%1:13:00")
-
     )
 
 (define-type ONT::BEVERAGES
@@ -2541,6 +2574,7 @@
 (define-type ONT::SOUP
     :wordnet-sense-keys ("soup%1:13:00")
     :parent ONT::MEALS
+    :sem (f::phys-obj (F::form F::liquid))
     )
 
 (define-type ONT::CEREALS

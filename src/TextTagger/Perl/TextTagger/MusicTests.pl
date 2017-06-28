@@ -9,7 +9,8 @@ use lib '../';
 use Data::Dumper;
 use Term::ANSIColor qw(:constants);
 use TextTagger::Util qw(structurally_equal);
-use TextTagger::Tags2Trips qw(sortTags);
+use TextTagger::CombineTags qw(combine_tags);
+use TextTagger::Tags2Trips qw(sortTags tags2trips);
 use TextTagger::RomanNumerals qw(tag_roman_numerals);
 use TextTagger::Music qw(tag_music);
 
@@ -4863,6 +4864,62 @@ my @tests = (
       }
 =cut
 
+my $pretty = 0;
+my $format = undef;
+my $USAGE = <<EOU;
+USAGE: 
+  ./MusicTests.pl [options] [first-test-index [last-test-index]]
+
+Runs all the tests if no test indices are supplied. If only first-test-index is
+supplied, runs only that test (even if it would normally be skipped). If
+last-test-index is also supplied, runs all the tests in the range, inclusive.
+Note that options must occur first, before any indices.
+
+Options:
+
+--help
+  	Prints this help text and exits.
+--format=native|lattice
+	Prints the correct output tags from each test after running the test,
+	in the selected format. "lattice" is what TRIPS uses, "native" is
+	closer to TextTagger's internal data structures.
+--pretty
+	(only useful with --format) Adds whitespace to the formatted output
+	tags to make them easier to read.
+
+Output:
+
+Each selected test prints one line to STDOUT:
+
+√ 123. foo bar
+A BBB  CCCCCCC
+
+A = test status (√=passed; X=failed; E=errored; S=skipped)
+B = test index
+C = input text
+
+Failed tests also print a colorized diff of the actual and expected tags, in
+Perl format (this isn't affected by --format). Errored tests print the error
+message.
+
+After all tests finish, a summary is printed, counting how many tests had each
+status.
+EOU
+
+while (@ARGV and $ARGV[0] =~ /^--/) {
+  $_ = shift @ARGV;
+  if (/^--help$/) {
+    print $USAGE;
+    exit;
+  } elsif (/^--format=(native|lattice)$/) {
+    $format = $1;
+  } elsif (/^--pretty$/) {
+    $pretty = 1;
+  } else {
+    die "Invalid argument: $_\n$USAGE";
+  }
+}
+
 if (@ARGV == 1) {
   @tests = ($tests[$ARGV[0]]);
 } elsif (@ARGV == 2) {
@@ -4947,6 +5004,26 @@ for my $test (@tests) {
       $errored++;
       print YELLOW, "E\n", WHITE, "$@\n", RESET;
     };
+  }
+  if ($format) {
+    my $combined_tags =
+      ($format eq 'lattice' ? # only lattice format requires combining tags
+	[sortTags(combine_tags(+{}, @{$test->{tags}}))] :
+	$test->{tags});
+    my $kqml = join('', map { KQML::KQMLAsString($_) . "\n" }
+			    tags2trips($combined_tags, $format));
+    if ($pretty) {
+      $kqml =~ s/((?<=\()| )(?=:|\()/
+	my $b4 = $`;
+	if ($b4 =~ m!:[a-z-]+$!) {
+	  ' '
+	} else {
+	  my $indent = scalar(@{[$b4 =~ m!\(!g]}) - scalar(@{[$b4 =~ m!\)!g]});
+	  "\n" . ('  'x$indent)
+	}
+      /ge;
+    }
+    print RESET, $kqml;
   }
   $i++;
 }
