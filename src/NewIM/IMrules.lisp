@@ -181,6 +181,14 @@
 
 
 
+     ;; e.g., Name the drug that...
+     ((ONT::SPEECHACT ?x ONT::SA_REQUEST :CONTENT ?!theme)
+      (ONT::F ?!theme ONT::NAMING :NEUTRAL ?!n :force ?f)
+      (?!spec ?!n ?!t :mods (?!m))
+      (ONT::F ?!m ?!t2)
+      -request-to-identify>
+      (ONT::ASK-WHAT-IS :who *user* :to *ME* :what ?!n :suchthat ?!m)
+      )
    
      ;; e.g., buy me a computer
      ((ONT::SPEECHACT ?x ONT::SA_REQUEST :CONTENT ?!theme)
@@ -308,13 +316,25 @@
        (ONT::ASK-WHAT-IS :who *USER* :to *ME* :what ?!ff :suchthat ?!rr)
 	)
       
+   ;; conditional questions: "What happens to the price of wheat in South Sudan if we cut the amount of fertilizer?"
+
+     ((ONT::SPEECHACT ?!a ONT::SA_WH-QUESTION :FOCUS ?!ff :CONTENT ?!rr)
+      (ONT::WH-TERM ?!ff ?!type)
+      (ONT::F ?!rr ONT::SITUATION-ROOT :condition ?!cond-op)
+      (ONT::F ?!cond-op ONT::POS-CONDITION :GROUND ?!test)
+      ;(ONT::F ?!test ONT::EVENT-OF-CAUSATION)
+      (ONT::F ?!test ONT::EVENT-OF-CHANGE)  ; "activate" is not EVENT-OF-CAUSATION
+      -ask-wh-condition>
+      (ONT::ASK-CONDITIONAL-WHAT-IS :who *USER* :to *ME* :what ?!ff :suchthat ?!rr :condition ?!test)
+      )
       
    ;; conditional questions: is ERK activated if we add Serafinabib?
 
      ((ONT::SPEECHACT ?!a ONT::SA_YN-QUESTION :CONTENT ?!rr)
       (ONT::F ?!rr ONT::SITUATION-ROOT :condition ?!cond-op)
       (ONT::F ?!cond-op ONT::POS-CONDITION :GROUND ?!test)
-      (ONT::F ?!test ONT::EVENT-OF-CAUSATION)
+      ;(ONT::F ?!test ONT::EVENT-OF-CAUSATION)
+      (ONT::F ?!test ONT::EVENT-OF-CHANGE)  ; "activate" is not EVENT-OF-CAUSATION      -ynq-condition>
       -ynq-condition>
       (ONT::ASK-CONDITIONAL-IF :who *USER* :to *ME* :what ?!rr :condition ?!test)
       )
@@ -409,6 +429,10 @@
     -frag-none2>
     (ONT::ANSWER :who *USER* :to *ME* :what ?!vv)
     )
+
+   ((?spec ?!v ONT::NUMBER)
+    -frag-number> 
+    (ONT::ANSWER :who *USER* :to *ME* :what ?!v))
 
    ;; fragment predicates, e.g., severe, very sad, ...
    (;;(ONT::SPEECHACT ?a ONT::SA_PRED-FRAGMENT :CONTENT ?!vv)
@@ -765,4 +789,21 @@
 	   ;;(CALL (ACTIVE-PROPOSAL-ON-STACK ?prop ?context))
 	   -confirm5>
 	   (ONT::REJECT :who *USER* :to *ME* :what ?!x))
+
+          ; cancel/scratch it/this/that/the building of the staircase
+          ((ONT::SPEECHACT ?a ONT::SA_REQUEST :content ?!cc)
+	   (ONT::F ?!cc (? t ONT::CANCEL) :AFFECTED ?f)
+	   (?reln2 ?f ?t2)
+	   ;(ONT::PRO ?f ONT::REFERENTIAL-SEM)
+	   -cancel>
+	   (ONT::CANCEL :who *USER* :to *ME* :what ?f))
+	  
+          ; forget it; forget about it
+          ((ONT::SPEECHACT ?a ONT::SA_REQUEST :content ?!cc)
+	   (ONT::F ?!cc (? t ONT::FORGET) :NEUTRAL ?n)
+	   (?reln2 ?n ?t2)
+	   ;(ONT::PRO ?n ONT::REFERENTIAL-SEM)
+	   -forget>
+	   (ONT::CANCEL :who *USER* :to *ME* :what ?n))
+
 	  )) 

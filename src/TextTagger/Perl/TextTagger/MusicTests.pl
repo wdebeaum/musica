@@ -5028,4 +5028,4 @@ for my $test (@tests) {
   $i++;
 }
 print BOLD, "Summary:\n", GREEN, "  passed:  $passed\n", RED, "  failed:  $failed\n", YELLOW, "  errored: $errored\n", BLUE, "  skipped: $skipped\n", RESET;
-
+exit 1 if ($errored || $failed);

@@ -136,16 +136,23 @@
 
 (define-predicate 'w::recompute-spec
     #'(lambda (args)
-	(let ((spec (get-fvalue args 'w::spec))
-	      (agr  (get-fvalue args 'w::agr))
-	      (result (get-fvalue args 'w::result)))
-	  
-	(if (eq spec 'ONT::DEFINITE)
+	(recompute-spec args)))
+
+(defun recompute-spec (args)
+  (let ((spec (get-fvalue args 'w::spec))
+	(agr  (get-fvalue args 'w::agr))
+	(result (get-fvalue args 'w::result)))
+    
+    (if (member spec '(ONT::DEFINITE W::DEFINITE))
+	(if (equal agr 'w::|3P|)
+	    (match-vals nil result 'ONT::DEFINITE-PLURAL)
+	    (match-vals nil result 'ONT::DEFINITE))
+	(if (member  spec '(ONT::INDEFINITE W::INDEFINITE))
 	    (if (equal agr 'w::|3P|)
-		
-		(match-vals nil result 'W::DEFINITE-PLURAL)
-		(match-vals nil result spec))
-	    (match-vals nil result spec)))))
+		(match-vals nil result 'ONT::INDEFINITE-PLURAL)
+		(match-vals nil result 'ONT::INDEFINITE))
+	    (match-vals nil result spec))
+   )))
 
 (defun check-if-bound (var)
   "succeeds only if arg is bound to something not equal to -"
@@ -200,6 +207,17 @@
   (if (consp x)
       (second x) 
       x))
+
+(define-predicate 'w::compute-ont-type-from-sem
+     #'(lambda (args)
+      (compute-lf-from-sem args)))
+
+  
+(defun compute-lf-from-sem (args)
+  (let* ((sem (second (assoc 'w::sem args)))
+	 (lf (second (assoc 'w::lf args))))
+    (match-vals nil lf (or (;; finish when new SEM strctures are installed
+			    )))))
 
 (defun add-features-to-constraint (feats oldconstraint newconstraintvar)
   "A helper to add-new-constraint. Given a list of features and an old constraint, creates a new constraint with features added to the old constraint. "

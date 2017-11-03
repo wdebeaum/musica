@@ -10,7 +10,6 @@
     ;; because we are destructively eliminating candidates in the structures, we don't need to return anything
     (eliminate-unlikely-referents refs)
     (install-referents refs)
-    
     (set-processing-status index 'reference)))
 
 (defun eliminate-unlikely-referents (orig-refs)
@@ -161,6 +160,7 @@
 	 (id (second lf))
 	 (name (find-arg-in-act lf :name-of))
 	 (sem (find-arg-in-act term :sem))
+	 (input (find-arg-in-act term :input))
 	 (start (find-arg-in-act term :start))
 	 (end (find-arg-in-act term :end)))
 	   
@@ -181,6 +181,7 @@
       :end end
       :sem sem
       :index index
+      :input input
       )
      )))
 
@@ -304,9 +305,17 @@
 	 (addressee (if (eq speaker *me*) (channel-conversant *current-channel*) *me*)))
     (mapcar #'(lambda (r)
 		(let ((hyps (find-possible-hyps r n speaker addressee)))
+		  (sort-hyps hyps)
 		  (setf (referent-ref-hyps r) hyps)
 		  r))
 	    refs)))
+
+(defun sort-hyps (orig-hyps)
+  (let ((sorted-hyps (sort orig-hyps #'> :key #' (lambda (x) (getf (ref-hyp-score x) :sem-score )) )) ; sort by sem-score regardless of how far back it is
+	)
+    sorted-hyps
+    )
+  )
 
 (defun find-possible-hyps (ref index speaker addressee)
   "Returns a list REF-HYPs with referential information added"
@@ -320,7 +329,7 @@
 	    (resolve-personal-pronoun lf lf-type index speaker addressee sem (referent-role ref))
 	    )
 	   (ONT::IMPRO
-	    (resolve-impro lf sem index (referent-role ref))
+	    (resolve-impro lf lf-type sem index (referent-role ref))
 	    )
 	   ((ONT::THE ONT::THE-SET)
 	    (resolve-definite-reference lf lf-type sem index speaker addressee))
@@ -437,7 +446,7 @@
 				 :refers-to 'ONT::US)))
 	    ((ont::it ont::its
 		      W::it W::its)
-	     (when (non-expletive lf)
+	     (when (non-expletive lf-type) ;(non-expletive lf)
 	       (resolve-pro-fn lf lf-type sem '(concrete kind event wh-term state) '(individual) index (fn-no-human lf-type) 3 role)
 	       ;(or (resolve-pro-fn lf lf-type sem '(concrete) '(individual) index (fn-no-human lf-type) 3 role)
 		   ;(resolve-pro-fn lf lf-type sem '(event wh-term state) '(individual) index #'(lambda (x) T) 3 role))
@@ -449,7 +458,7 @@
 	    
 	    ((ont::this ont::that ont::these ont::those
 			W::this W::that W::these W::those)
-	     (when (non-expletive lf)
+	     (when (non-expletive lf-type) ;(non-expletive lf)
 	       (resolve-this-that lf lf-type sem index)))
 	    
 	    ((ont::they ont::them ont::their
@@ -470,8 +479,8 @@
 			     3
 			     role)
 		 ;;   backoff strategy for gendered pronouns - just look for people of unknown gender
-		 (if (member (cadr lf-type) '(ONT::MALE-PERSON ONT::FEMALE-PERSON))
-		     (let ((opposite-type (if (eq (cadr lf-type) 'ONT::MALE-PERSON)
+		 (if (member lf-type '(ONT::MALE-PERSON ONT::FEMALE-PERSON))
+		     (let ((opposite-type (if (eq lf-type 'ONT::MALE-PERSON)
 					      'ONT::FEMALE-PERSON 'ONT::MALE-PERSON)))
 		     (resolve-pro-fn (list* (car lf) (cadr lf) 'ont::person (cdddr lf)) 'ont::person sem
 				     '(concrete) '(individual) index 
@@ -498,8 +507,9 @@
 	    
     val))
 
-(defun non-expletive (lf)
-  (not (eq (third lf) 'w::expletive)))
+(defun non-expletive (lf-type)
+  ;(not (eq (third lf) 'w::expletive)))
+  (not (eq lf-type 'ont::expletive)))
 
 (defun find-temporal-ref (pro lf)
   (multiple-value-bind (sec min hour day month year)
@@ -683,9 +693,9 @@
 (defun sort-by-access (results access)
   results)
 
-(defun resolve-impro (lf sem index role)
+(defun resolve-impro (lf lf-type sem index role)
   (let* ((id (second lf))
-	 (lf-type (get-lf-type lf))
+	 ;(lf-type (get-lf-type lf))
 	 (cr (find-arg-in-act lf :proform))
 	 (sem (find-arg-in-act lf :sem))
 	(hyps (case cr
@@ -870,10 +880,13 @@
   (let ((lf-type (simplify-generic-type (or lf-type1 (third lf))))
 	(id (second lf))
 	)
+    (score-and-build-hyp id lf-type ante nil)
+    #|
     (make-ref-hyp  :id id
 		   :lf-type (or (om::more-specific (referent-lf-type ante) lf-type) (referent-lf-type ante) lf-type)
 		   :refers-to (referent-refers-to ante)
 		   :coref (or (referent-coref ante) (referent-id ante)))
+    |#
     ))
 
 (defun score-and-build-hyp (id lf-type ante sem)
@@ -881,6 +894,12 @@
   (multiple-value-bind
 	(newsem score)
       (score-sem id ante sem)
+    (if (not (numberp (cadr score)))
+	(setq score (list :sem-score 0))
+        (if (and (eq lf-type 'ont::referential-sem) (not (eq (referent-accessibility ante) 'concrete)))
+	    (setq score (list :sem-score (* (cadr score) 0.9)))
+	  )
+      )
     (make-ref-hyp  :id id
 		   :lf-type (or (om::more-specific (referent-lf-type ante) (simplify-generic-type lf-type)) lf-type (referent-lf-type ante))
 		   :refers-to (referent-refers-to ante)

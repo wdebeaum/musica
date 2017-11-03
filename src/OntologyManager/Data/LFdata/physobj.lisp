@@ -40,11 +40,6 @@
     :parent ONT::MOLECULAR-PART
     )
 
-(define-type ONT::residue
-;    :parent ONT::MOLECULE
-    :parent ONT::MOLECULAR-PART
-    )
-
 ;; DRUM
 (define-type ONT::BIOLOGICAL-ROLE
 ;    :parent ONT::MOLECULE
@@ -117,6 +112,11 @@
     :sem (F::Phys-obj (F::origin F::plant))
     )
 
+(define-type ONT::GRAINS
+    :wordnet-sense-keys ("grain%1:20:00" "cereal%1:20:00")
+    :parent ONT::plant
+    )
+
 ;; stem, leaf
 (define-type ONT::plant-part
     :wordnet-sense-keys ("plant_part%1:20:00")
@@ -156,7 +156,7 @@
 (define-type ONT::GEO-OBJECT
     :wordnet-sense-keys ("location%1:03:00")
     :parent ONT::phys-OBJECT
-    :sem (F::Phys-obj (F::form F::geographical-object))
+    :sem (F::Phys-obj (F::form F::geographical-object) (F::container +))
 		      ;;(:default (F::object-function F::spatial-object)))
     )
 
@@ -386,6 +386,12 @@
     :wordnet-sense-keys ("amino_acid%1:27:00")
     :Parent ont::chemical
     )
+
+(define-type ONT::residue
+;    :parent ONT::MOLECULE
+;    :parent ONT::MOLECULAR-PART
+    :parent ONT::CHEMICAL
+  )
 
 ;; UMLS
 (define-type ont::pharmacologic-substance
@@ -1341,7 +1347,7 @@
 (define-type ONT::Corner
     :parent ONT::LOCATION-by-description
     :wordnet-sense-keys ("corner%1:15:02" "corner%1:06:00")
-    :sem (F::Phys-obj (F::spatial-abstraction (? sa1 F::spatial-point)))
+    :sem (F::Phys-obj (F::spatial-abstraction (? sa1 F::spatial-point)) (f::container +))
     :arguments ((:OPTIONAL ONT::FIGURE (F::PHYS-OBJ (F::FORM F::OBJECT) (F::SPATIAL-ABSTRACTION (? SA F::STRIP F::SPATIAL-REGION))))
 		)
     )
@@ -1735,7 +1741,7 @@
 (define-type ONT::body-part
     :wordnet-sense-keys ("body_part%1:08:00" "organ%1:08:00" )
     :parent ONT::anatomy
-    :sem (F::Phys-obj (F::origin F::living) (f::intentional -) (f::form f::object) (f::object-function f::body-part))
+    :sem (F::Phys-obj (F::origin F::living) (f::intentional -) (f::form f::object) (f::object-function f::body-part) (f::container +))
  ;;; too strong, but better than unconstrained
     :arguments ((:OPTIONAL ONT::FIGURE (F::Phys-obj (F::origin F::living) (f::form f::object)))
 		)
@@ -2388,10 +2394,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; > Types added for FOOD KB
 
-(define-type ONT::GRAINS
+(define-type ONT::FOOD-GRAINS
     :parent ONT::FOOD
-    :wordnet-sense-keys ("grain%1:13:00" "food_grain%1:13:00" "cereal%1:13:00" "grain%1:20:00" "caryopsis%1:20:00")
+    :wordnet-sense-keys ("grain%1:13:00")
     :sem (f::phys-obj (f::origin f::natural))
+    :comment "grains and grain products for food"
     )
 
 (define-type ONT::DAIRY
@@ -2661,7 +2668,7 @@
 ;;;;;;;;;;;;;;;
 
 (define-type ont::group-object
- :wordnet-sense-keys ("mathematical_group%1:09:00" "group%1:09:00" "chemical_group%1:27:00" "radical%1:27:00" "group%1:27:00" "group%1:03:00" "grouping%1:03:00")
+ :wordnet-sense-keys ("mathematical_group%1:09:00" "group%1:09:00" "chemical_group%1:27:00" "radical%1:27:00" "group%1:27:00" "group%1:03:00" "grouping%1:03:00" "union%1:14:01")
  ;:parent ont::abstract-object-nontemporal
  :parent ont::phys-object
 ;  :sem (F::Abstr-obj (f::group +)) ; group feature not defined for abstract objects
@@ -2815,8 +2822,14 @@
  )
 
 (define-type ONT::collection
- :wordnet-sense-keys ("collection%1:14:00" "aggregation%1:14:00" "accumulation%1:14:00" "assemblage%1:14:01")
+ :wordnet-sense-keys ("collection%1:14:00" "aggregation%1:14:00" "accumulation%1:14:00" "assemblage%1:14:01" "array%1:14:00" "array%1:10:00")
  :parent ONT::group-object
+ )
+
+;; surplus, excess
+(define-type ONT::surplus
+ :parent ONT::group-object
+ :wordnet-sense-keys ("surplus%1:07:00")
  )
 
 (define-type ONT::sequence

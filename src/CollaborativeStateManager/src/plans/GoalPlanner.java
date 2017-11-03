@@ -3,19 +3,17 @@ package plans;
 import handlers.IDHandler;
 import handlers.ReferenceHandler;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
 
 import extractors.TermExtractor;
 import TRIPS.KQML.KQMLList;
 import TRIPS.KQML.KQMLObject;
+import states.ActType;
 import states.Action;
 import states.Goal;
 import states.Query;
+import utilities.KQMLUtilities;
 
 public class GoalPlanner {
 
@@ -29,6 +27,7 @@ public class GoalPlanner {
 	private boolean globalSystemInitiative = false;
 	private boolean overrideSystemInitiative = false;
 	private boolean overrideSystemInitiativeValue = false;
+	private boolean ambiguousActiveGoal = false;
 	private Goal underDiscussion;
 	private ReferenceHandler referenceHandler;
 	public boolean hasAcceptedGoal = false;
@@ -69,7 +68,7 @@ public class GoalPlanner {
 			upperCaseParentVariableName = parentVariableName.toUpperCase();
 		
 		Goal parentGoal = getGoal(upperCaseParentVariableName);
-		if (parentGoal != null && parentGoal.isFailed())
+		if (parentGoal != null && (parentGoal.isFailed() || parentGoal.isAbandoned()))
 		{
 			System.out.println("Replacing " + parentGoal.getVariableName() + 
 					" with " + goal.getVariableName() + " and term: " + 
@@ -81,6 +80,13 @@ public class GoalPlanner {
 			goalConnections.put(goal,getGoal(upperCaseParentVariableName));
 			variableGoalMapping.put(goal.getVariableName().toUpperCase(),goal);
 			idGoalMapping.put(goal.getId(), goal);
+			if (activeGoal != null && parentVariableName == null && getTopLevelGoals().size() > 1)
+			{
+				System.out.println("Active goal is now ambiguous after adding new "
+						+ "top level goal");
+				ambiguousActiveGoal = true;
+				activeGoal = null;
+			}
 			goal.setParent(getGoal(upperCaseParentVariableName));
 			System.out.println("Added goal " + goal.getVariableName() + " with parent "
 					+ upperCaseParentVariableName + " and term: " + 
@@ -89,6 +95,16 @@ public class GoalPlanner {
 		
 		referenceHandler.addReference(goal.getKQMLTerm());
 		underDiscussion = goal;
+
+		// LG: debug info
+		System.out.println("Current goals:");
+		for (Goal g : idGoalMapping.values()) {
+		    String activeFlag="";
+		    if ((activeGoal != null) &&
+			(activeGoal.getVariableName().equalsIgnoreCase(g.getVariableName())))
+			activeFlag="*";
+		    System.out.println("\t" + activeFlag + g);
+		}
 		
 		return true;
 	}
@@ -122,7 +138,7 @@ public class GoalPlanner {
 		return result;
 	}
 	
-	
+
 	
 	public List<Query> getQueries()
 	{
@@ -136,7 +152,7 @@ public class GoalPlanner {
 		return result;
 	}
 	
-	 
+
 	
 	public KQMLList modify(Goal newGoal, String oldGoalName, boolean strict)
 	{
@@ -160,12 +176,7 @@ public class GoalPlanner {
 			return newGoal.adoptContent("MODIFICATION", oldGoal.getId());
 		
 		return newGoal.adoptContent("ELABORATION", oldGoal.getId());
-		
-//		if (parentGoal != null)
-//			return newGoal.adoptContent("SUBGOAL", parentGoal.getVariableName());
-//		else
-//			return newGoal.adoptContent("GOAL", null);
-		
+	
 		
 	}
 	
@@ -210,8 +221,7 @@ public class GoalPlanner {
 			addGoal(newGoal, activeGoal.getVariableName());
 
 			return newGoal.adoptContent("ELABORATION", activeGoal.getId());
-			//return newGoal.adoptContent("MODIFICATION", activeGoal.getVariableName());
-			//return newGoal.adoptContent("SUBGOAL", activeGoal.getVariableName());
+
 		}
 		// The active goal has failed, replace it
 		else if (activeGoal != null && (activeGoal.isFailed() || strict))
@@ -226,10 +236,6 @@ public class GoalPlanner {
 			
 			return newGoal.adoptContent("MODIFICATION", activeGoalId);
 			
-//			if (activeParentGoal != null)
-//				return newGoal.adoptContent("SUBGOAL", activeParentGoal.getVariableName());
-//			else
-//				return newGoal.adoptContent("GOAL", null);
 		}
 		else if (underDiscussion != null)
 		{
@@ -268,10 +274,7 @@ public class GoalPlanner {
 				
 				return newGoal.adoptContent("MODIFICATION", failedGoal.getId());
 				
-//				if (parentGoal != null)
-//					return newGoal.adoptContent("SUBGOAL", parentGoal.getVariableName());
-//				else
-//					return newGoal.adoptContent("GOAL", null);
+
 			}
 		}
 		
@@ -353,6 +356,19 @@ public class GoalPlanner {
 		
 	}
 	
+	public Set<Goal> getTopLevelGoals()
+	{
+		HashSet<Goal> ambiguousGoals = new HashSet<Goal>();
+		for (Entry<Goal,Goal> e : goalConnections.entrySet())
+		{
+			if (e.getValue() != null && e.getValue().isValidGoal())
+				ambiguousGoals.add(e.getKey());
+		}
+		
+		return ambiguousGoals;
+		
+	}
+	
 	public Goal getGoal(String variableName)
 	{
 		if (variableName == null)
@@ -410,13 +426,22 @@ public class GoalPlanner {
 		if (hasGoalById(goal.getId()) || hasGoal(goal.getVariableName()))
 		{
 			this.activeGoal = goal;
+			ambiguousActiveGoal = false;
+			System.out.println("Active goal now ID: " + goal.getId() +
+					" WHAT: " + goal.getVariableName());
 			return true;
 		}
 		
 		succeeded = addGoal(goal);
 		
 		if (succeeded)
+		{
 			this.activeGoal = goal;
+			ambiguousActiveGoal = false;
+			System.out.println("Active goal now ID: " + goal.getId() +
+							" WHAT: " + goal.getVariableName());
+		}
+		
 		
 		
 		return succeeded;
@@ -484,26 +509,51 @@ public class GoalPlanner {
 		return parent;
 	}
 	
+	public void setParentGoalToActive(Goal completedOrAbandonedGoal) {
+		if (completedOrAbandonedGoal.getParent() != null)
+		{
+
+			boolean succeeded = setActiveGoal(completedOrAbandonedGoal.getParent());
+			if (succeeded)
+				System.out.println("Set active goal to " +
+						completedOrAbandonedGoal.getParent().getVariableName());
+			else
+				System.out.println("Failed to set active goal to " +
+						completedOrAbandonedGoal.getParent().getVariableName());
+		}
+        else
+        {
+	        	Set<Goal> topLevelGoals = getTopLevelGoals();
+	        	int numberOfNewPossibleGoals = 0;
+	        	Goal lastAcceptableGoal = null;
+	        	for (Goal g : topLevelGoals)
+	        	{
+	        		if (g.isValidGoal())
+	        		{
+	        			numberOfNewPossibleGoals++;
+	        			lastAcceptableGoal = g;
+	        		}
+	        	}
+	        	
+	        	if (numberOfNewPossibleGoals == 0)
+	        		activeGoal = null;
+	        	else if (numberOfNewPossibleGoals == 1)
+	        		activeGoal = lastAcceptableGoal;
+	        	else
+	        	{
+	        		activeGoal = null;
+	        		ambiguousActiveGoal = true;
+	        	}
+        }
+	}
+	
 	public synchronized void setCompleted(Goal goal)
 	{
 		goal.setCompleted(true);
 		System.out.println("Completed goal " + goal.getVariableName());
 		
-		if (goal.getParent() != null)
-		{
-
-			boolean succeeded = setActiveGoal(goal.getParent());
-			if (succeeded)
-				System.out.println("Set active goal to " +
-					goal.getParent().getVariableName());
-			else
-				System.out.println("Failed to set active goal to " +
-						goal.getParent().getVariableName());
-		}
-        else
-        {
-            activeGoal = null;
-        }
+		setParentGoalToActive(goal);
+		
 	}
 	
 	public boolean createAskFromAct(String cpsa, KQMLList act, KQMLList context)
@@ -586,11 +636,12 @@ public class GoalPlanner {
 			goalLF.add(goalName);
 			goalLF.add(":INSTANCE-OF");
 			goalLF.add("DUMMY-GOAL");
-			System.out.println("Not a valid goal to add to the system. Creating DUMMY-GOAL.");
+			System.out.println(goalIdObject + ": Not a valid goal to add to the system. Creating DUMMY-GOAL.");
 			//return false;
 		}
 		
 		KQMLObject asObject = act.getKeywordArg(":AS");
+		// If this is a problem again, probably don't have a default
 		String type = "GOAL";
 		
 		// Check if it's an assertion
@@ -598,6 +649,38 @@ public class GoalPlanner {
 		{
 			type = "ASSERTION";
 			System.out.println("This is an assertion");
+		}
+		else if (act.get(0).stringValue().equalsIgnoreCase("ASK-WH"))
+		{
+			type = "ASK-WH";
+			System.out.println("This is a ASK-WH question");
+		}
+		else if (act.get(0).stringValue().equalsIgnoreCase("ASK-IF"))
+		{
+			type = "ASK-IF";
+			System.out.println("This is a ASK-IF question");
+		}
+		else if (act.get(0).stringValue().equalsIgnoreCase("ANSWER"))
+		{
+			// This should probably be moved out of this function soon
+			type = "ANSWER";
+			
+			if (act.getKeywordArg(":TO") != null)
+			{
+				String toId = act.getKeywordArg(":TO").stringValue();
+				System.out.println("This is an answer to query " + toId);
+				Goal toGoal = getGoalById(toId);
+				if (toGoal == null)
+					System.out.println("Query " + toId + " not found");
+				else if (!(toGoal instanceof Query))
+					System.out.println("Goal " + toId + " is not a query");
+				else
+				{
+					System.out.println("Answer successful");
+					((Query)toGoal).setAnswered(true);
+				}
+			}
+			return false;
 		}
 		String parent = null;
 		if (asObject != null && !type.equalsIgnoreCase("ASSERTION"))
@@ -607,12 +690,13 @@ public class GoalPlanner {
             KQMLObject parentObject = asList.getKeywordArg(":OF");
             if (parentObject == null)
             	parentObject = asList.getKeywordArg(":GOAL");
-			if (parentObject != null)
+			if (!KQMLUtilities.isKQMLNull(parentObject))
                 parent = parentObject.stringValue();
 		}
 		
-		if (parent == null)
+		if (parent == null && !type.equalsIgnoreCase("QUERY-IN-CONTEXT"))
 		{
+			// Queries can have no parent
 			if (activeGoal != null)
 				parent = activeGoal.getVariableName();
 			else
@@ -646,17 +730,20 @@ public class GoalPlanner {
 			if (cpsa.equalsIgnoreCase("ACCEPT"))
 				replaceGoal(newGoal,getGoal(parent));
 		}
-		else if (type.equalsIgnoreCase("ANSWER"))
-		{
-			// TODO: Something here?
-		}
+
 		else if (type.equalsIgnoreCase("QUERY-IN-CONTEXT"))
 		{
 			newGoal = new Query(act,getGoal(parent),context);
 			if (goalIdObject != null)
 				newGoal.setId(goalIdObject.stringValue());
 			//newGoal = new Query(goalLF,getGoal(parent),context);
-			addGoal(newGoal,parent);
+			
+			Goal oldGoal = getGoal(newGoal.getId());
+			if (oldGoal!= null)
+				replaceGoal(newGoal,oldGoal);
+			else
+				addGoal(newGoal,parent);
+			
 			
 			// Hacky crap
 			String query = null;
@@ -685,8 +772,11 @@ public class GoalPlanner {
 			}
 				
 			newGoal.setAccepted();
-			setActiveGoal(newGoal);
-			System.out.println("Active goal now: " + goalName);
+			if (!hasAmbiguousActiveGoal())
+			{
+				setActiveGoal(newGoal);
+				System.out.println("Active goal now: " + goalName);
+			}
 		}
 		else if (cpsa.equals("PROPOSE"))
 		{
@@ -696,8 +786,8 @@ public class GoalPlanner {
 				return false;
 			}
 			System.out.println("Proposed goal has: ");
-			System.out.println("ID: " + newGoal.getId());
-			System.out.println("What: " + newGoal.getVariableName());
+			System.out.println("\tID: " + newGoal.getId());
+			System.out.println("\tWhat: " + newGoal.getVariableName());
 		}
 		return true;
 	}
@@ -735,7 +825,14 @@ public class GoalPlanner {
 	public HashMap<String, Query> getQueryMapping() {
 		return queryMapping;
 	}
-	
+
+	public boolean hasAmbiguousActiveGoal() {
+		return ambiguousActiveGoal;
+	}
+
+	public HashMap<String, Goal> getIdGoalMapping() {
+		return idGoalMapping;
+	}
 	
 	
 }

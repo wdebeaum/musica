@@ -294,11 +294,14 @@ public class CollaborativeStateManager extends StandardTripsModule  {
 				KQMLString text = new KQMLString(re.getMessage());
 				replyMessage.setParameter(":COMMENT", comment);
 				replyMessage.setParameter(":TEXT", text);
-				reply(msg, replyMessage);
+				//reply(msg, replyMessage);
+				
 			}
 			if (responseContent != null)
 			{
-				sendContentViaPerformative("TELL", "DAGENT", responseContent, replyWith);
+			    // LG debug info
+			    // System.out.println("CSM response: " + responseContent);
+			    sendContentViaPerformative("TELL", "DAGENT", responseContent, replyWith);
 			}
 			
 		}
@@ -331,7 +334,8 @@ public class CollaborativeStateManager extends StandardTripsModule  {
 		else if (content0.equalsIgnoreCase("update-csm"))
 		{
 			KQMLObject replyWith = msg.getParameter(":REPLY-WITH");	
-			UpdateCSMHandler uch = new UpdateCSMHandler(msg, content, referenceHandler, goalPlanner, this);
+			UpdateCSMHandler uch = new UpdateCSMHandler(msg, content, referenceHandler, goalPlanner,
+											 this);
 			KQMLList responseContent = null;
 			try {
 				responseContent = uch.process();

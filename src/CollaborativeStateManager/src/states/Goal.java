@@ -7,6 +7,7 @@ import java.util.*;
 
 import extractors.TermExtractor;
 import TRIPS.KQML.KQMLList;
+import TRIPS.KQML.KQMLObject;
 import TRIPS.KQML.KQMLString;
 import TRIPS.KQML.KQMLToken;
 
@@ -21,6 +22,7 @@ public class Goal {
 	boolean failed;
 	boolean completed;
 	boolean rejected;
+	boolean abandoned;
 	boolean systemTookInitiative;
 	List<KQMLList> failureMessages;
 	boolean initiativeSpecified;
@@ -42,6 +44,7 @@ public class Goal {
 		this.parent = parent;
 		accepted = false;
 		failed = false;
+		abandoned = false;
 		completed = false;
 		systemTookInitiative = false;
 		initiativeSpecified = false;
@@ -250,13 +253,22 @@ public class Goal {
 	
 	public String toString()
 	{
+	    // LG: added more information in a compact form
+	    if (false) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Goal:" + getVariableName());
 		if (parent != null)
-		{
+		    {
 			sb.append("\nParent: " + parent.getVariableName());
-		}
-		return sb.toString(); 
+		    }
+		return sb.toString();
+	    }
+	    return "Goal:" + getVariableName()
+		+ "[" + ( "A:" + accepted +
+			  ",R:" + rejected +
+			  ",C:" + completed +
+			  ",F:" + failed ) + "]"
+		+ ( (parent != null) ? ("->" + parent.getVariableName()) : "" );
 	}
 
 	public boolean isAccepted() {
@@ -274,6 +286,32 @@ public class Goal {
 	public KQMLList getAdditionalContext()
 	{
 		return additionalContext;
+	}
+	
+	public String getArgumentAsString(String argument)
+	{
+		KQMLObject resultObject = term.getKeywordArg(argument);
+		if (resultObject == null)
+			return null;
+		
+		return resultObject.stringValue();
+	}
+
+	public boolean isAbandoned() {
+		return abandoned;
+	}
+
+	public void abandon() {
+		this.abandoned = true;
+		for (Goal child : childGoals)
+		{
+			child.abandon();
+		}
+	}
+	
+	public boolean isValidGoal()
+	{
+		return !isAbandoned() && !isFailed() && !isCompleted();
 	}
 	
 }

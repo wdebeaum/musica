@@ -138,7 +138,7 @@ ONT::MODULATE
 ONT::NO-CHANGE
 ONT::TRANSFORM
 ONT::SIGNALING
-ONT::INTERACT 
+ONT::INTERACT
 						   ))
 		     (?!sp2 ?!test (? t2 ONT::EVENT-OF-CAUSATION
 ONT::ACTIVITY
@@ -189,6 +189,28 @@ ONT::INTERACT
 		     )
 	  :destination 'handle-csm-response
 	  :trigger t)
+
+	 (transition
+	  :description "conditional ask-wh. eg: what is the level if we add X"
+	  :pattern '((ONT::SPEECHACT ?!sa ONT::ASK-CONDITIONAL-WHAT-IS :what ?!what :suchthat ?!st
+		      :condition ?!test)
+		     ;; (ONT::EVENT ?!what ONT::SITUATION-ROOT)
+		     ;; (ONT::EVENT ?!test ONT::EVENT-OF-CAUSATION) 
+		     (?!sp1 ?!st (? t1 ONT::SITUATION-ROOT))
+		     (ont::eval (generate-AKRL-context :what ?!st :result ?akrl-context))
+		     (ont::eval (find-attr :result ?goal :feature ACTIVE-GOAL))
+		     -propose-wh-test>
+		     (RECORD CPS-HYPOTHESIS (ONT::ASK-CONDITIONAL-WHAT-IS :content ?!what :condition ?!test :context ?akrl-context :active-goal ?goal))
+		     (INVOKE-CSM :msg (INTERPRET-SPEECH-ACT
+				       :content (ONT::ASK-CONDITIONAL-WHAT-IS :content ?!what
+								  :suchthat ?!st
+								  :condition ?!test
+								  :context ?akrl-context
+								  :active-goal ?goal)))
+		     )
+	  :destination 'handle-csm-response
+	  :trigger t)
+ 		     
 		      
 	 ; generic TELL.  
 	 (transition
@@ -203,6 +225,36 @@ ONT::INTERACT
 				      :content (ASSERTION :content ?!root
 							  :context ?akrl-context
 							  :active-goal ?goal)))
+		     )
+	  :destination 'handle-csm-response
+	  :trigger t)
+
+	 (transition
+	  :description "cancel/scratch it/this/that/the building of the staircase; forget it "
+	  :pattern '((ONT::SPEECHACT ?!sa (? x ONT::CANCEL) :what ?what)
+		     (ont::eval (generate-AKRL-context :what ?what :result ?akrl-context))
+		     (ont::eval (find-attr :result ?goal :feature ACTIVE-GOAL))
+		     -cancel>
+		     (RECORD CPS-HYPOTHESIS (ABANDON :content ?what :context ?akrl-context :active-goal ?goal))
+		     (INVOKE-CSM :msg (INTERPRET-SPEECH-ACT
+				      :content (ABANDON :content ?what
+							:context ?akrl-context
+							:active-goal ?goal)))
+		     )
+	  :destination 'handle-csm-response
+	  :trigger t)
+	 
+	 (transition
+	  :description "cancel (no arguments)"
+	  :pattern '((ONT::SPEECHACT ?!sa (? x ONT::CANCEL) :what -)
+		     ;(ont::eval (generate-AKRL-context :what ?what :result ?akrl-context))
+		     (ont::eval (find-attr :result ?goal :feature ACTIVE-GOAL))
+		     -cancel2>
+		     (RECORD CPS-HYPOTHESIS (ABANDON :content nil :context nil :active-goal ?goal))
+		     (INVOKE-CSM :msg (INTERPRET-SPEECH-ACT
+				      :content (ABANDON :content nil
+							:context nil
+							:active-goal ?goal)))
 		     )
 	  :destination 'handle-csm-response
 	  :trigger t)
@@ -360,24 +412,6 @@ ONT::INTERACT
 	  :destination 'what-next-initiative-on-new-goal ;'segmentend ;'propose-cps-act
 	  )
 
-	 #|
-	 (transition
-	  :description "I will; I can't (answers to both WH and YN questions); green; the green block; How about me?"
-	  :pattern '((ONT::SPEECHACT ?!sa (? t ONT::ANSWER ONT::IDENTIFY ONT::REQUEST-COMMENT) :what ?!what)
-		     (ont::eval (generate-AKRL-context :what ?!what :result ?akrl-context))
-		     (ont::eval (find-attr :result ?goal :feature ACTIVE-GOAL))
-		     -user-response4>
-		     (RECORD CPS-HYPOTHESIS (ANSWER :content ?!what :context ?akrl-context :active-goal ?goal))
-		     (INVOKE-BA :msg (INTERPRET-SPEECH-ACT
-				      :content (ANSWER :content ?!what
-							:context ?akrl-context
-							:active-goal ?goal)))
-
-		     )
-	  :destination 'handle-csm-response
-	  )
-	 |#
-
 	 (transition
 	  :description "I will; I can't (answers to both WH and YN questions)"
 	  :pattern '((ONT::SPEECHACT ?!sa (? t ONT::ANSWER) :what ?!what)
@@ -434,9 +468,78 @@ ONT::INTERACT
  (state :action nil
 	:transitions
 	(list
+	 (transition  ; temporary fix
+	  :description "user says forget it"  
+	  :pattern '((BA-RESPONSE  X REPORT :psact REJECT :id ?!id :WHAT ?!what :as ?as
+				   :content ?!content :context ?context)
+		     -reject>
+		     ;(Update-CSM (REJECTED :content ?!content :context ?context))
+		     (RECORD PROPOSAL-ON-TABLE nil)
+		     (QUERY-CSM :content (ACTIVE-GOAL))
+		     (RECORD POSSIBLE-GOAL nil)
+		     (clear-pending-speech-acts)
+		     (GENERATE :content (ONT::ACCEPT))
+		     (GENERATE :content (ONT::REQUEST :content (ONT::PROPOSE-GOAL :agent ONT::USER)))
+		     )
+	  :destination 'segmentend ;'propose-cps-act
+	  )
+
+	 #|
+	 (transition
+	  :description "CSM fails to identify the goal, and no guess. Right now we just prompt the user
+                        to identify their goal and forget the current utterance"
+	  :pattern '((BA-RESPONSE  X REPORT :psact REJECT :id ?!id :WHAT ?!what :as ?as
+				   :context ?context)
+		     -reject>
+		     (Update-CSM (REJECTED :content ?!content :context ?context))
+		     (RECORD PROPOSAL-ON-TABLE nil)
+		     (NOTIFY-BA :msg-type TELL
+				:msg (REPORT :content (REJECTED :what ?!content) :context ?!context))
+		     (QUERY-CSM :content (ACTIVE-GOAL))
+
+		     (RECORD REJECTED (FAILED-TO-INTERPRET :WHAT ?!content :REASON (MISSING-ACTIVE-GOAL) :context ?context))
+		     (RECORD POSSIBLE-GOAL nil)
+		     (clear-pending-speech-acts)
+		     (GENERATE
+		      :content (ONT::FAILED-TO-UNDERSTAND-GOAL :content ?!content)
+		      :context ?context)
+		     (GENERATE :content (ONT::REQUEST :content (ONT::PROPOSE-GOAL :agent ONT::USER)))
+		     )
+	  :destination 'segmentend ;'propose-cps-act
+	  )
+	 |#
+
+	 
+	 (transition
+	  :description "abandon---with or without a pending possible-goal"
+	  :pattern '((BA-RESPONSE X REPORT :psact (? act ABANDON) :id ?!goal :as ?as 
+		      :content ?content :context ?new-akrl :alternative ?alt-as)
+		     ;;(BA-RESPONSE X ?!X :content ((? act ADOPT ASSERTION) :what ?!goal :as ?as :alternative ?alt-as) :context ?new-akrl)
+		     ;(ont::eval (find-attr :result nil :feature possible-goal))
+		     -abandon>
+		     (UPDATE-CSM (PROPOSED :content ?content
+				  :context ?new-akrl))
+		     (RECORD PROPOSAL-ON-TABLE (ONT::PROPOSE-GOAL
+						:content ?content
+						:context ?new-akrl))
+		     (RECORD ACTIVE-GOAL ?!goal)
+		     (RECORD ALT-AS ?alt-as)
+		     (RECORD ACTIVE-CONTEXT ?new-akrl)
+		     (RECORD POSSIBLE-GOAL nil)
+		     (RECORD POSSIBLE-GOAL-ID nil)
+		     (RECORD POSSIBLE-GOAL-CONTEXT nil)
+		     (RECORD NEXT-CPS-HYPOTHESIS nil)
+		     (RECORD CPS-HYPOTHESIS nil)
+		     (INVOKE-BA :msg (EVALUATE 
+				      :content ?content
+				      :context ?new-akrl))
+		     )
+	  :destination 'propose-cps-act-response
+	  )
+
 	 (transition
 	  :description "CSM returns a successful proposal interpretation"
-	  :pattern '((BA-RESPONSE X REPORT :psact (? act ADOPT ASSERTION ASSERT ASK-WH ASK-IF) :id ?!goal :as ?as 
+	  :pattern '((BA-RESPONSE X REPORT :psact (? act ADOPT ASSERTION ASSERT ASK-WH ASK-IF SELECT) :id ?!goal :as ?as 
 		      :content ?content :context ?new-akrl :alternative ?alt-as)
 		     ;;(BA-RESPONSE X ?!X :content ((? act ADOPT ASSERTION) :what ?!goal :as ?as :alternative ?alt-as) :context ?new-akrl)
 		     (ont::eval (find-attr :result nil :feature possible-goal))
@@ -449,9 +552,6 @@ ONT::INTERACT
 		     (RECORD ACTIVE-GOAL ?!goal)
 		     (RECORD ALT-AS ?alt-as)
 		     (RECORD ACTIVE-CONTEXT ?new-akrl)
-		     ;(RECORD LAST-MSG (EVALUATE 
-				     ; :content ?content
-				     ; :context ?new-akrl))
 		     (INVOKE-BA :msg (EVALUATE 
 				      :content ?content
 				      :context ?new-akrl))
@@ -459,12 +559,13 @@ ONT::INTERACT
 	  :destination 'propose-cps-act-response
 	  )
 
+
 	 (transition
-	  :description "CSM returns a successful proposal interpretation"
+	  :description "CSM returns a successful proposal interpretation when we also have a pending POSSIBLE-GOAL"
 	  :pattern '((BA-RESPONSE X REPORT :psact (? act ADOPT) :id ?!goal :as ?as 
 		      :content ?content :context ?new-akrl :alternative ?alt-as)
 		     ;;(BA-RESPONSE X ?!X :content ((? act ADOPT ASSERTION) :what ?!goal :as ?as :alternative ?alt-as) :context ?new-akrl)
-		     (ont::eval (find-attr :result ?!poss-goal :feature possible-goal))
+		    (ont::eval (find-attr :result ?!poss-goal :feature possible-goal)) 
 		     -successful-interp1-clarify-goal>
 		     (UPDATE-CSM (PROPOSED :content ?content
 				  :context ?new-akrl))
@@ -519,8 +620,7 @@ ONT::INTERACT
 		     (RECORD POSSIBLE-GOAL-ID ?goal-id)
 		     (RECORD POSSIBLE-GOAL-CONTEXT ?goal-description)
 		     (RECORD NEXT-CPS-HYPOTHESIS ?orig-cps-hyp)
-		     (clear-pending-speech-acts) ; in preparation of saying something in clarify-goal
-		     )
+		     (clear-pending-speech-acts)) ; in preparation of saying something in clarify-goal		     )
 	  :destination 'clarify-goal
 	  )
 		      
@@ -557,7 +657,23 @@ ONT::INTERACT
 	  )
 
 	 (transition
-	  :description "CSM fails to identify any relevant events in the ASSERTION"
+	  :description "CSM fails to identify a relationship with the existing goals"
+	  :pattern '((BA-RESPONSE  X REPORT :psact FAILURE :type FAILED-TO-INTERPRET :WHAT (PROPOSE :content ?!content)
+		      :REASON (UNKNOWN-GOAL-RELATION :EXISTING-GOAL ?g1 :NEW-GOAL ?g2) :context ?context)
+		     -intention-failure-unknown-goal>
+		     (RECORD FAILURE (FAILED-TO-INTERPRET :WHAT ?!content :REASON (UNKNOWN-GOAL-RELATION) :context ?context))
+		     (RECORD POSSIBLE-GOAL (ADOPT :what ?!content :id ?g2 :as (GOAL)))
+		     (RECORD POSSIBLE-GOAL-CONTEXT ?context)
+		     (clear-pending-speech-acts)
+		     (GENERATE
+		      :content (ONT::CONFIRM-ADDING-ADDITIONAL-GOAL :content ?!content)
+		      :context ?context)		     
+		     )
+	  :destination '-process-answer-about-additional-goal
+	  )
+
+	 (transition
+	  :description "CSM fails for some other reason"
 	  :pattern '((BA-RESPONSE  X REPORT :psact FAILURE :type ?!type :WHAT ?!content :REASON ?r :context ?context)
 		     -intention-failure-others>
 		     (RECORD FAILURE (?!type :WHAT ?!content :REASON ?r :context ?context))
@@ -637,35 +753,35 @@ ONT::INTERACT
 
 	 (transition
 	  :description "acceptance - non query"
-	  :pattern '((BA-RESPONSE X REPORT :psact ACCEPTABLE :what ?!psgoal :context ?!context
+	  :pattern '((BA-RESPONSE X REPORT :psact ACCEPTABLE :what ?!psgoal :context ?context
 		      :effect ?mod-goal)
 		     ;(ont::eval (extract-feature-from-act :result ?!goal-id :expr ?!psgoal :feature :what))
 		     (ont::eval (extract-feature-from-act :result nil :expr ?!psgoal :feature :query))
 		     -goal-response-non-query>
-		     (UPDATE-CSM (ACCEPTED :content ?!psgoal :context ?!context :effect ?mod-goal))
+		     (UPDATE-CSM (ACCEPTED :content ?!psgoal :context ?context :effect ?mod-goal))
 		     (NOTIFY-BA :msg-type REQUEST
 				:msg (COMMIT
-				      :content ?!psgoal :effect ?mod-goal)) ;; :context ?!context))  SIFT doesn't want the context
+				      :content ?!psgoal :effect ?mod-goal)) ;; :context ?context))  SIFT doesn't want the context
 		     (QUERY-CSM :content (ACTIVE-GOAL))
 		     ;(RECORD ACTIVE-GOAL ?!goal-id)
-		     ;(RECORD ACTIVE-CONTEXT ?!context)
+		     ;(RECORD ACTIVE-CONTEXT ?context)
 		     (RECORD PROPOSAL-ON-TABLE nil)
-		     (GENERATE :content (ONT::ACCEPT :what ?!psgoal) :context ?!context)
+		     (GENERATE :content (ONT::ACCEPT :what ?!psgoal) :context ?context)
 		     )
 	  :destination 'what-next-initiative-on-new-goal)
 
  	(transition
 	  :description "acceptance - query"
-	  :pattern '((BA-RESPONSE X REPORT :psact ACCEPTABLE :what ?!psgoal :context ?!context
+	  :pattern '((BA-RESPONSE X REPORT :psact ACCEPTABLE :what ?!psgoal :context ?context
 		      :effect ?mod-goal)
 		     ;(ont::eval (extract-feature-from-act :result ?!goal-id :expr ?!psgoal :feature :what))
 		     (ont::eval (extract-feature-from-act :result ?!query :expr ?!psgoal :feature :query))
 		     -goal-response-query>
-		     (UPDATE-CSM (ACCEPTED :content ?!psgoal :context ?!context :effect ?mod-goal))                
+		     (UPDATE-CSM (ACCEPTED :content ?!psgoal :context ?context :effect ?mod-goal))                
 		    
 		     (NOTIFY-BA :msg-type REQUEST
 				:msg (COMMIT
-				      :content ?!psgoal :effect ?mod-goal)) ;; :context ?!context))  SIFT doesn't want the context
+				      :content ?!psgoal :effect ?mod-goal)) ;; :context ?context))  SIFT doesn't want the context
 		     (RECORD PROPOSAL-ON-TABLE nil)
 		     (QUERY-CSM :content (ACTIVE-GOAL))
 		     )
@@ -673,21 +789,21 @@ ONT::INTERACT
 
 	 (transition
 	  :description "acceptance of an ANSWER"
-	  :pattern '((BA-RESPONSE X REPORT :psact ACCEPTABLE :what ?!psgoal :context ?!context :effect ?mod-goal
+	  :pattern '((BA-RESPONSE X REPORT :psact ACCEPTABLE :what ?!psgoal :context ?context :effect ?mod-goal
 		      :content (ACCEPTABLE :what (ANSWER)))
 		     (ont::eval (extract-feature-from-act :result ?!goal-id :expr ?!psgoal :feature :query))
 		     -goal-response-answer>
 		     (UPDATE-CSM (ACCEPTED :content ?!psgoal :context ?!context :effect ?mod-goal))
 		     (NOTIFY-BA :msg-type REQUEST
 				:msg (COMMIT
-				      :content ?!psgoal :effect ?mod-goal)) ;; :context ?!context))  SIFT doesn't want the context
+				      :content ?!psgoal :effect ?mod-goal)) ;; :context ?context))  SIFT doesn't want the context
 		     (UPDATE-CSM (STATUS-REPORT :goal ?!goal-id :status ONT::DONE))
 		     (QUERY-CSM :content (ACTIVE-GOAL))
 		     ;(RECORD ACTIVE-GOAL ?!goal-id)
-		     ;(RECORD ACTIVE-CONTEXT ?!context)
+		     ;(RECORD ACTIVE-CONTEXT ?context)
 		     (RECORD PROPOSAL-ON-TABLE nil)
 		     ;(GENERATE :content (ONT::EVALUATION :content (ONT::GOOD)))
-		     (GENERATE :content (ONT::ACCEPT :what ?!psgoal) :context ?!context)
+		     (GENERATE :content (ONT::ACCEPT :what ?!psgoal) :context ?context)
 		     )
 	  :destination 'what-next-initiative-on-new-goal)
 
@@ -886,6 +1002,7 @@ ONT::INTERACT
 
 ;;  CLARIFICATION MANAGEMENT
 
+;; This generates a request to confirm a goal stored in POSSIBLE-GOAL-ID and POSSIBLE-GOAL-CONTEXT
 (add-state 'clarify-goal 
  (state :action '(GENERATE :content (ONT::CLARIFY-GOAL :content (V possible-goal-id)) :context (V POSSIBLE-GOAL-context))
 	:preprocessing-ids '(yes-no)
@@ -923,20 +1040,49 @@ ONT::INTERACT
 		     )
 	  :destination 'segmentend ;'propose-cps-act
 	  )
-	 
-	 #|
+	 )	
+	))
+
+;; This just handles response to previously asked yes/no question concerning the goal in POSSIBLE-GOAL
+(add-state '-process-answer-about-additional-goal 
+ (state :action nil
+	:preprocessing-ids '(yes-no)
+	:implicit-confirm t
+	:transitions
+	(list
 	 (transition
-	  :description "default"
-	  :pattern '((?!spec ?sa ?t)
-		     -default4
+	  :description "yes"
+	  :pattern '((ANSWER :value YES)
+		     (ont::eval (find-attr :result ?context :feature POSSIBLE-GOAL-context))
+		     (ont::eval (find-attr :result ?!poss-goal :feature possible-goal))
+		     -right-guess-on-goal1>
+		     (RECORD POSSIBLE-GOAL nil) 
+		     (RECORD POSSIBLE-GOAL-ID nil)
+		     (INVOKE-BA :msg (EVALUATE 
+				      :content ?!poss-goal
+				      :context ?context))
+		     )
+	  :destination 'propose-cps-act-response)
+
+	 ;;  so the new proposal is not a new goal - right now we say we didn't understand
+	 (transition
+	  :description "no" 
+	  :pattern '((ANSWER :value NO)
+		     -propose-cps-act1>
+		     (RECORD PROPOSAL-ON-TABLE nil)
+		     (RECORD POSSIBLE-GOAL nil)
+		     (RECORD POSSIBLE-GOAL-ID nil)
+		     (RECORD POSSIBLE-GOAL-CONTEXT nil)
+		     (RECORD NEXT-CPS-HYPOTHESIS nil)
+		     (RECORD CPS-HYPOTHESIS nil)
 		     (clear-pending-speech-acts)
-		     (GENERATE :content (ONT::TELL :content (ONT::DONT-UNDERSTAND)))
-		     (GENERATE :content (ONT::REQUEST :content (ONT::PROPOSE-GOAL :agent ONT::USER)))		     
+		     (GENERATE
+		      :content (ONT::TELL :content (ONT::DIDNT-UNDERSTAND)))
+		     (GENERATE
+		      :content (ONT::REQUEST :content (ONT::PROPOSE-GOAL :agent ONT::USER)))
 		     )
 	  :destination 'segmentend ;'propose-cps-act
 	  )
-	 |#
-	 
 	 )	
 	))
 
@@ -1158,32 +1304,29 @@ ONT::INTERACT
 		     (UPDATE-CSM (BA-WAITING)))
 	  :destination 'segmentend)
 		
-	 #|
-	  ;;  OBSOLETE -- delete soon	
+	 ;; BA returns new goal to establish
 	 (transition
-	  :description "suggestion of user action"
-	  :pattern '((BA-RESPONSE ?!X PERFORM :agent *USER* :action ?!action :context ?context)
-		     (ont::eval (find-attr :result ?goal :feature ACTIVE-GOAL))
-		     -what-next1>
-		     (UPDATE-CSM (PROPOSED :content (ADOPT :what ?!action :as (SUBGOAL :OF ?goal)) :context ?context))
-		     (RECORD ACTIVE-GOAL ?!action)
-		     (RECORD ACTIVE-CONTEXT ?context)
-		     (RECORD PROPOSAL-ON-TABLE (ONT::PROPOSE :content (ADOPT :what ?!action :as (SUBGOAL :OF ?goal)) :context ?context))
-		     (GENERATE
-		      :content (ONT::PROPOSE :content (ONT::PERFORM :action ?!action :context ?context)))
-		     )
-	  :destination 'proposal-response)
-	 |#
-
-	 ;;NEW  -- this is the revised version of the old what-next1>
-	 (transition
-	  :description "suggestion of goal update or asking a question"
+	  :description "suggestion of goal update (not a question - handled in next rule"
 	  :pattern '((BA-RESPONSE ?!X PROPOSE :content ?!ps-action :context ?context)
-		     ;;(BA-RESPONSE PROPOSE :content ?!ps-action :context ?context)
-		     ;(ont::eval (find-attr :result ?goal :feature ACTIVE-GOAL))
 		     (ont::eval (extract-feature-from-act :result ?!goal :expr ?!ps-action :feature :id))
 		     (ont::eval (extract-feature-from-act :result nil :expr ?!ps-action :feature :query))
 		     -ba-propose-psact>
+		     (UPDATE-CSM (PROPOSED :content ?!ps-action :context ?context))
+		     (RECORD PROPOSAL-ON-TABLE (ONT::PROPOSE :content ?!ps-action :context ?context))
+		     (RECORD ACTIVE-GOAL ?!goal)
+		     (RECORD ACTIVE-CONTEXT ?context)
+		     (GENERATE
+		      :content (ONT::PROPOSE :content ?!ps-action) :context ?context)
+		     )
+	  :destination 'answers 
+	  )
+
+	 (transition
+	  :description "suggestion of goal of asking a question: we know because QUERY slot is filled"
+	  :pattern '((BA-RESPONSE ?!X PROPOSE :content ?!ps-action :context ?context)
+		     (ont::eval (extract-feature-from-act :result ?!goal :expr ?!ps-action :feature :id))
+		     (ont::eval (extract-feature-from-act :result ?!query :expr ?!ps-action :feature :query))
+		     -ba-propose-psact-propose>
 		     (UPDATE-CSM (PROPOSED :content ?!ps-action :context ?context))
 		     (RECORD PROPOSAL-ON-TABLE (ONT::PROPOSE :content ?!ps-action :context ?context))
 		     (RECORD ACTIVE-GOAL ?!goal)
@@ -1195,23 +1338,21 @@ ONT::INTERACT
 	  :destination 'answers ;'segmentend ;;'propose-cps-act
 	  )
 
-	 (transition
-	  :description "suggestion of goal update or asking a question"
-	  :pattern '((BA-RESPONSE ?!X PROPOSE :content ?!ps-action :context ?context)
+	  (transition
+	  :description "asking a question"
+	  :pattern '((BA-RESPONSE ?!X ASK-WH :content ?!ps-action :context ?context)
 		     ;;(BA-RESPONSE PROPOSE :content ?!ps-action :context ?context)
 		     ;(ont::eval (find-attr :result ?goal :feature ACTIVE-GOAL))
 		     (ont::eval (extract-feature-from-act :result ?!goal :expr ?!ps-action :feature :id))
-		     (ont::eval (extract-feature-from-act :result ?!query :expr ?!ps-action :feature :query))
 		     -ba-propose-psact-query>
-		     (UPDATE-CSM (PROPOSED :content ?!ps-action :context ?context))
-		     (RECORD PROPOSAL-ON-TABLE (ONT::PROPOSE :content ?!ps-action :context ?context))
+		     (UPDATE-CSM ?!ps-action)
+		     (RECORD PROPOSAL-ON-TABLE ?!ps-action)
 		     (RECORD ACTIVE-GOAL ?!goal)
 		     (RECORD ACTIVE-CONTEXT ?context)
 		     (GENERATE
-		      :content (ONT::PROPOSE :content ?!ps-action) :context ?context)
+		      :content ?!ps-action :context ?context)
 		     )
-;	  :destination 'proposal-response)
-	  :destination 'answers ;'segmentend ;;'propose-cps-act
+	  :destination 'answers 
 	  )
 	 
 	 (transition
@@ -1238,21 +1379,6 @@ ONT::INTERACT
 	  
 	  :destination 'check-timeout-status)
 				
-	 #|
-	  ;;  OBSOLETE -- delete soon	
-	 (transition
-	  :description "action completed!"
-	  :pattern '((BA-RESPONSE ?!X GOAL-ACHIEVED)
-		     -what-next3>
-		     (UPDATE-CSM (GOAL-ACHIEVED))
-		     (GENERATE :content (ONT::EVALUATION :content (ONT::GOOD)))
-		     (GENERATE :content (ONT::CLOSE))
-		     )
-
-
-	  :destination 'segmentend)
-	 |#
-	 
 	 (transition
 	  :description "answer to a question"
 	  :pattern '((BA-RESPONSE X REPORT :psact ANSWER :to ?!to :what ?what :query ?of :value ?!value :justification ?j 
@@ -1286,6 +1412,15 @@ ONT::INTERACT
  (state :action nil
 	:transitions
 	(list
+	 (transition
+	  :description ""
+	  :pattern '((REPORT :content (AMBIGUOUS-ACTIVE-GOAL :ids ?!goals :whats ?whats)  
+		      :context ?context)
+		     -ambiguous-active-goal>
+		     (record possible-goals ?!whats)
+		     (record possible-goal-context ?context)
+		      )
+	  :destination 'setting-active-goal)
 	 (transition
 	  :description ""
 	  :pattern '((REPORT :content (ACTIVE-GOAL :id ?!goal :what ?what)  
@@ -1325,6 +1460,40 @@ ONT::INTERACT
 	 
 	 )
 	))
+
+;; This asks the user which of the several established goals to focus on: so PROPOSE-> SELECT rather than ADOPT
+(add-state 'setting-active-goal
+ (state :action '(SAY-ONE-OF  :content ("What shall we work on first" "what do you want to work on?"))
+	:transitions
+	(list
+	 (transition
+	  :description "proposal/request as focusing on an existing goal. eg: Let's build the stairs"
+	  :pattern '((ONT::SPEECHACT ?!sa (? x ONT::PROPOSE ONT::REQUEST ONT::REQUEST-COMMENT) :what ?!what)
+		     (?!spec ?!what ?!t)
+		     (ont::eval (generate-AKRL-context :what ?!what :result ?akrl-context))
+		     -select-goal>
+		     (RECORD CPS-HYPOTHESIS (PROPOSE :content ?!what :context ?akrl-context :active-goal ?goal))
+		     (INVOKE-CSM :msg (INTERPRET-SPEECH-ACT
+				      :content (PROPOSE :content ?!what
+							:context ?akrl-context
+							:as (SELECT))))
+							
+		     )
+	  :destination 'handle-csm-response
+	  :trigger t)
+	 (transition
+	  :description "user defers to system: e.g., you choose"
+	  :pattern '((ONT::SPEECHACT ?!sa (? x ONT::PROPOSE ONT::REQUEST ONT::REQUEST-COMMENT ONt::FRAGMENT) :what ?!what)
+		     (?!spec ?!what ONT::SELECT :agent ?!agent)
+		     (ONT::PRO ?!agent ONT::PERSON :REFERS-TO ONT::SYS)
+		     -select-goal1>
+		     ;;  NEED TO FIX BELOW!!
+		     (INVOKE-CSM :msg (PICK-ACTIVE-GOAL))
+		     )
+	  :destination 'what-next-initiative-on-new-goal
+	  :trigger t)
+	 )))	 	 
+
 
 ;;;;
 ;;    Here are the acts starting a dialogue with system intitative

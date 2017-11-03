@@ -8,7 +8,9 @@ import java.util.*;
 import extractors.OntologyReader;
 import extractors.TermExtractor;
 import plans.GoalPlanner;
+import plans.Messages;
 import states.Goal;
+import utilities.KQMLUtilities;
 
 public class TakeInitiativeHandler extends MessageHandler {
 
@@ -32,10 +34,10 @@ public class TakeInitiativeHandler extends MessageHandler {
 		KQMLObject context = content.getKeywordArg(":CONTEXT");
 		if (context == null || context.stringValue().equalsIgnoreCase("NIL") || context.stringValue().equals("-"))
 			context = new KQMLList();
-		if (goalObject == null)
+		if (KQMLUtilities.isKQMLNull(goalObject))
 		{
 			System.out.println("Goal parameter not set");
-			return missingGoalToModify("NIL", context);
+			return Messages.missingGoalToModify("NIL", context);
 		}
 		String goalWhat = goalObject.stringValue();
 		
@@ -77,7 +79,7 @@ public class TakeInitiativeHandler extends MessageHandler {
 		if (goalLF == null)
 		{
 			System.out.println("No such goal in planner");
-			return missingGoalToModify(goalWhat, context);
+			return Messages.missingGoalToModify(goalWhat, context);
 		}
 		
 		
@@ -114,7 +116,7 @@ public class TakeInitiativeHandler extends MessageHandler {
 			}
 		}
 		
-		if (takeInitContent == null)
+		if (takeInitContent == null && goalLF.getKeywordArg(":INSTANCE-OF") != null)
 		{
 			String goalType = goalLF.getKeywordArg(":INSTANCE-OF").stringValue();
 			System.out.println("Goal type: *" + goalType + "*");
