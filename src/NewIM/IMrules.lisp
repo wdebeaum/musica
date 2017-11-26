@@ -28,7 +28,18 @@
 		    :as ONT::GOAL)
        )
      
-    ;; e.g., let's work on buying me a computer
+     ; We/I/you will/are going to buy a computer.
+     ((ONT::SPEECHACT ?x ONT::SA_TELL :CONTENT ?!c)  
+      (ONT::F ?!c ?t :AGENT ?!ag :formal ?!theme 
+	:modality (? m ONT::GOING-TO ONT::FUTURE))
+      ((? p ONT::PRO ONT::PRO-SET) ?!v1 ?type :PROFORM (? xx W::I W::WE w::you))
+      -going-to>
+       (ONT::PROPOSE :who *USER* :to *ME*
+		    :what ?!c
+		    :as ONT::GOAL)
+       )
+
+     ;; e.g., let's work on buying me a computer
      ((ONT::SPEECHACT ?x ONT::SA_REQUEST :CONTENT ?!c)
        (ONT::F ?!c (:* ?xx W::WORK-ON) :agent ?!agent :formal ?!action)
       (ONT::PRO ?!agent (ONT::SET-OF ONT::PERSON))
@@ -660,7 +671,8 @@
 (mapcar #'(lambda (x) (add-im-rule x 'SA-rules))
 	;; rules for accepting or rejecting proposals
 	'(
-	 
+
+	  #|
 	  ((ONT::SPEECHACT ?!vv ONT::SA_RESPONSE :content ((? x ont::POS ont::UNSURE-POS) :content ?!cc))
 	   -gen-proposal-rule1>
 	   (ONT::ACCEPT :who *USER* :to *ME*))
@@ -668,9 +680,11 @@
 	   ((ONT::SPEECHACT ?!vv ONT::SA_RESPONSE :content ((? x ont::NEG ont::UNSURE-NEG) :content ?!cc))
 	    -gen-proposal-rule2>
 	    (ONT::REJECT :who *USER* :to *ME*))
-	 
+	  |#
+
 	  ;;  yes, no, I don't think so
-	  ((ONT::SPEECHACT ?!vv ONT::SA_RESPONSE :content (?!x :content ?!cc))
+	  (;(ONT::SPEECHACT ?!vv ONT::SA_RESPONSE :content (?!x :content ?!cc))
+	   (ONT::SPEECHACT ?!vv ONT::SA_RESPONSE :content ?!x)
 	   -YNQ-response-rule1>
 	   (ONT::ANSWER :who *USER* :to *ME* :what ?!x))
 
@@ -806,4 +820,10 @@
 	   -forget>
 	   (ONT::CANCEL :who *USER* :to *ME* :what ?n))
 
+          ; never mind
+          ((ONT::SPEECHACT ?a ONT::SA_REJECT :content w::never-mind)
+	   -cancel2> 1.0  ; higher priority
+	   (ONT::CANCEL :who *USER* :to *ME*))
+	  
+	  
 	  )) 

@@ -632,6 +632,7 @@
 (defun handle-input-message (msg)
   "this handles spontaneous report from the BA or other components"
   (let* ((msg-content (find-arg-in-act msg :content))  ;; this should be a REPORT
+	 (sender (find-arg-in-act msg :sender))
 	 (content (find-arg-in-act msg-content :content))
 	 (user (lookup-user 'desktop))
 	 (dstate (current-dstate user))
@@ -641,7 +642,7 @@
 	 (lfs (list content))
 	 (hyps))
 	     
-      (if dstate
+      (if (and dstate (not (eq sender 'dagent)))
       (when (not (process-lf-in-state lfs hyps context newchannel nil user uttnum))
 	(if (state-implicit-confirm dstate)
 	    ;; clear the state and start again
@@ -1045,7 +1046,7 @@
   (setf (user-time-of-last-BA-interaction user) (get-time-of-day))
   (let* ((msg1 (instantiate-dstate-args (find-arg args :msg) user))
 	 (msg (if *suppress-context-on-what-next* 
-		  (remove-context-if-what-next msg1)
+		  (remove-context-in-what-next msg1)
 		  msg1))
 	 (x (send-status `(WAITING :on ,(car msg))))
 	 (reply (send-and-wait `(REQUEST :content ,msg)))
@@ -1065,8 +1066,8 @@
     (trace-msg 3 "~% *last-internal-response* is ~S~%" *last-internal-response*)	  
    ))
 
-(defun suppress-context-on-what-next (msg)
-  (format t "Supressing context in ~S" msg)
+(defun remove-context-in-what-next (msg)
+  (remove-arg-in-act msg :context)
   msg)
 
 (defun notify (args user channel uttnum)
@@ -1108,7 +1109,15 @@
   (format t "~%replacing value: act = ~S feature = ~S value = ~S" act feature newval)
   (when (consp act)
     (im::match-vals nil result (replace-arg-in-act act feature newval))))
-  
+
+(defun extract-element-from-list (&key result-id result-what expr element)
+  (let ((res (assoc element expr)))
+    ;(format t "~%extracting features: expr = ~S element = ~S result = ~S" expr element (find-arg-in-act res :id))
+    (append (im::match-vals nil result-id (find-arg-in-act res :id))
+	    (im::match-vals nil result-what (find-arg-in-act res :what))
+	    )
+    ))
+
 (defun invoke-generator (msg user channel uttnum)
   "here we invoke the BA with a message and record the result for the followup state.
     Since we are using send and wait we don't have syncronization problems"

@@ -69,7 +69,7 @@
 	     (ont::SA_request 1) 
 	     (ont::SA_YN-QUESTION 1) 
 	     (w::ADJP 1.2) 
-	     (w::advblp 1.3)
+	     (w::advbl 1.3)
 	     (ont::SA_CONFIRM 1) 
 	     (ont::SA_WH-QUESTION 1) 
 	     (ont::SA_TELL 1)
@@ -123,5 +123,5 @@
 ; just the default user
 (setq dagent::*users* (list (cons "desktop" (dagent::make-user :name "desktop" :channel-id 'dagent::desktop))))
 
-(setq im::*extraction-sequence* '((im::musicaRules)))
+(setq im::*extraction-sequence* '((im::preprocessRules) (im::musicaRules)))
 (setq im::*substitute-terms-in-extraction* t)

@@ -40,6 +40,7 @@
 ;(load "cps-states.lisp")
 
 ;;;; extractor rules
+(load "preprocessRules.lisp")
 (load "musicaRules.lisp")
 ;(load "symbolmapping.lisp")
 
