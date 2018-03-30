@@ -398,6 +398,21 @@
  ;; WORDS: reliability
 )
 
+(define-type ont::safety-scale
+ :parent ont::evaluation-scale 
+)
+
+(define-type ont::safe-scale
+ :parent ont::safety-scale 
+ :wordnet-sense-keys ("safety%1:26:00")
+ ;; WORDS: safety, security
+)
+
+(define-type ont::unsafe-scale
+ :parent ont::safety-scale 
+ :wordnet-sense-keys ("insecurity%1:26:00") ; danger?
+)
+
 (define-type ont::suitability-scale
  :parent ont::evaluation-scale 
  :wordnet-sense-keys ("suitability%1:07:00" "fitness%1:07:00")
@@ -889,8 +904,8 @@
 
 (define-type ont::confidentiality-scale
  :parent ont::status-property-scale 
-:wordnet-sense-keys ("privacy%1:07:00" "privacy%1:26:02" "security%1:26:00")
- ;; WORDS: privacy, security
+:wordnet-sense-keys ("privacy%1:07:00" "privacy%1:26:02")
+ ;; WORDS: privacy
 )
 
 
@@ -1180,7 +1195,17 @@
 
 (define-type ont::cleanliness-scale
  :parent ont::state-of-affairs-scale 
+)
+
+(define-type ont::clean-scale
+ :parent ont::cleanliness-scale 
  :wordnet-sense-keys ("cleanliness%1:26:00" "cleanliness%1:07:00")
+ ;; WORDS: cleanliness
+)
+
+(define-type ont::unclean-scale
+ :parent ont::cleanliness-scale 
+ :wordnet-sense-keys ("dirtiness%1:26:00")
  ;; WORDS: cleanliness
 )
 

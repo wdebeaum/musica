@@ -192,15 +192,49 @@
 
 
 
-     ;; e.g., Name the drug that...
+     ;; e.g., Name/List/Tell me/Look up the drugs that...
      ((ONT::SPEECHACT ?x ONT::SA_REQUEST :CONTENT ?!theme)
-      (ONT::F ?!theme ONT::NAMING :NEUTRAL ?!n :force ?f)
+      (ONT::F ?!theme (? t3 ONT::NAMING ONT::LISTING ONT::TELL ONT::LOOK-UP) :NEUTRAL ?!n :force (? f ONT::TRUE ONT::ALLOWED ONT::FUTURE ONT::POSSIBLE)) 
       (?!spec ?!n ?!t :mods (?!m))
-      (ONT::F ?!m ?!t2)
+      (ONT::F ?!m (? !t2 ONT::DOMAIN-PROPERTY ONT::MODIFIER)) ; e.g., beautiful, or unknown adjectives 
       -request-to-identify>
       (ONT::ASK-WHAT-IS :who *user* :to *ME* :what ?!n :suchthat ?!m)
       )
-   
+
+     ;; e.g., Tell me/Let me know if there is/are...
+     ;; e.g., I want to know if (SA_TELL)
+     ((ONT::SPEECHACT ?x (? sa ONT::SA_REQUEST ONT::SA_TELL) :CONTENT ?!theme)
+      (ONT::F ?!theme (? t3 ONT::TELL ONT::ALLOW ONT::WANT ONT::LOOK-UP) :FORMAL ?!n :force (? f ONT::TRUE ONT::ALLOWED ONT::FUTURE ONT::POSSIBLE)) 
+      (ONT::F ?!n3 ONT::CLAUSE-CONDITION :CONTENT ?!c) ; note n3, not n
+      (ONT::F ?!c ONT::EXISTS :NEUTRAL ?!n2)
+      ;(ONT::PRO ?!p ONT::EXPLETIVE :PROFORM w::there) ; this is not put through the match
+      (?!spec2 ?!n2 ?!t2 :MODS (?!m))
+      (ONT::F ?!m (? !t4 ONT::DOMAIN-PROPERTY ONT::MODIFIER))
+      -request-to-identify3>
+      (ONT::ASK-WHAT-IS :who *user* :to *ME* :what ?!n2 :suchthat ?!m)
+      )
+     
+     ;; I want to know (about)...
+     ((ONT::SPEECHACT ?x ONT::SA_TELL :CONTENT ?!theme )
+      (ONT::F ?!theme (? t3 ONT::WANT) :FORMAL ?!n :force (? f ONT::TRUE ONT::ALLOWED ONT::FUTURE ONT::POSSIBLE)) 
+      (ONT::F ?!n ONT::KNOW :NEUTRAL ?!n2) ; note n3, not n
+      (?!spec2 ?!n2 ?!t2 :MODS (?!m))
+      (ONT::F ?!m (? !t4 ONT::DOMAIN-PROPERTY ONT::MODIFIER))
+      -request-to-identify4>
+      (ONT::ASK-WHAT-IS :who *user* :to *ME* :what ?!n2 :suchthat ?!m)
+      )
+
+     ;; can you name... (indirect requests)
+     ((ONT::SPEECHACT ?V7187 ONT::SA_YN-QUESTION :CONTENT ?!c)
+      (ONT::F ?!theme (? t3 ONT::NAMING ONT::LISTING ONT::TELL ONT::LOOK-UP) :NEUTRAL ?!n 
+	      :AGENT ?!V6 :force (? f ONT::ALLOWED ONT::PROHIBITED ONT::FUTURE ONT::FUTURENOT ONT::POSSIBLE ONT::FUTURE)) 
+     (?!spec ?!n ?!t :mods (?!m))
+     (ONT::F ?!m (? !t2 ONT::DOMAIN-PROPERTY ONT::MODIFIER))
+     ((? z ONT::PRO) ?!V6 ONT::PERSON :proform (? xx w::you))    
+     -can-indirect-request>
+     (ONT::ASK-WHAT-IS :who *user* :to *ME* :what ?!n :suchthat ?!m)
+      )
+     
      ;; e.g., buy me a computer
      ((ONT::SPEECHACT ?x ONT::SA_REQUEST :CONTENT ?!theme)
       (ONT::F ?!theme ?type :force ?f)
@@ -241,23 +275,21 @@
     (ONT::TELL :who *USER* :to *ME* :what ?!c)
     )
 
-  
+   ;; EXPLICIT ELLIPSIS RULESact interpretation depends on discourse context
 
-     ;; EXPLICIT ELLIPSIS RULESact interpretation depends on discourse context
-
-     ;; see rule as an answers to a question in generic-Q-model rules
-     ;; ellipsis - followup after questions or proposals
+   ;; see rule as an answers to a question in generic-Q-model rules
+   ;; ellipsis - followup after questions or proposals
 
    ;; e.g., How about from Atlanta?
    #|
-      ((ONT::SPEECHACT ?!xx ONT::SA_REQUEST-COMMENT :CONTENT ?!v)
-       --ellipsis1>
-       (ONT::ELLIPSIS :who *USER* :to *ME* :what ?!v));; :context ?context :prior-index ?index))
+   ((ONT::SPEECHACT ?!xx ONT::SA_REQUEST-COMMENT :CONTENT ?!v)
+   --ellipsis1>
+   (ONT::ELLIPSIS :who *USER* :to *ME* :what ?!v));; :context ?context :prior-index ?index))
    |#
 
-      ((ONT::SPEECHACT ?!xx ONT::SA_REQUEST-COMMENT :CONTENT ?!v)
-       -request-comment>
-       (ONT::REQUEST-COMMENT :who *USER* :to *ME* :what ?!v))
+   ((ONT::SPEECHACT ?!xx ONT::SA_REQUEST-COMMENT :CONTENT ?!v)
+    -request-comment>
+    (ONT::REQUEST-COMMENT :who *USER* :to *ME* :what ?!v))
 
    ;; how about you do it  -- if the argument is a sentence we make it a propose
    ((ONT::SPEECHACT ?!xx ONT::SA_REQUEST-COMMENT :CONTENT ?!v)
@@ -265,11 +297,11 @@
     -request-comment-as-propose>
     (ONT::PROPOSE :who *USER* :to *ME* :what ?!v))
    
-      ;; e.g., Fill in the author field.   And the title field.
-      ((ONT::SPEECHACT ?!xx ONT::SA_IDENTIFY :CONTENT ?!v :mods (?!m))
-       (ONT::F ?!m ONT::CONJUNCT)
-       -ellipsis2>
-       (ONT::ELLIPSIS :who *USER* :to *ME* :what ?!v));; :context ?context :prior-index ?index))
+   ;; e.g., Fill in the author field.   And the title field.
+   ((ONT::SPEECHACT ?!xx ONT::SA_IDENTIFY :CONTENT ?!v :mods (?!m))
+    (ONT::F ?!m ONT::CONJUNCT)
+    -ellipsis2>
+    (ONT::ELLIPSIS :who *USER* :to *ME* :what ?!v));; :context ?context :prior-index ?index))
       
    ;;==============================================================
       ;; Corrections
@@ -312,16 +344,7 @@
       
       ;; e.g., What budget are we using?
 
-      #|
-      ((ONT::SPEECHACT ?!a ONT::SA_WH-QUESTION :FOCUS ?!ff :CONTENT ?!rr)
-       (ONT::WH-TERM ?!ff ?!type :ASSOC-WITH ?a)
-       -standardQ>
-       (ONT::ASK-WHAT-IS :who *USER* :to *ME* :what ?!ff)
-       (ONT::THE ?!ff ?!type :suchthat ?!rr :ASSOC-WITH ?a)
-	)
-      |#
-
-      ((ONT::SPEECHACT ?!a ONT::SA_WH-QUESTION :FOCUS ?!ff :CONTENT ?!rr)
+   ((ONT::SPEECHACT ?!a ONT::SA_WH-QUESTION :FOCUS ?!ff :CONTENT ?!rr)
        (ONT::WH-TERM ?!ff ?!type)
        -standardQ>
        (ONT::ASK-WHAT-IS :who *USER* :to *ME* :what ?!ff :suchthat ?!rr)
@@ -453,10 +476,10 @@
     )
 
    ;; fragments specifying a condition: e.g., in the morning 
-   ;;((ONT::SPEECHACT ?a ONT::SA_PRED-FRAGMENT :CONTENT ?!vv)
-    ((ONT::F ?!vv (? typ ONT::TIME-SPAN-REL))
-    -frag-time-condition->
-    (ONT::ANSWER :who *USER* :to *ME* :condition ?!vv)
+   ((ONT::SPEECHACT ?a ONT::SA_PRED-FRAGMENT :CONTENT ?!vv)
+    (ONT::F ?!vv (? typ ONT::TIME-SPAN-REL))
+     -frag-time-condition->
+     (ONT::ANSWER :who *USER* :to *ME* :condition ?!vv)
      )
 
    ;;  fragment adverbials (e.g., locations, in my ankles, above the stove)
@@ -826,4 +849,4 @@
 	   (ONT::CANCEL :who *USER* :to *ME*))
 	  
 	  
-	  )) 
+	  ))
